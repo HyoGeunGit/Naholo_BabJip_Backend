@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-const UsersSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   // 암호화 필수
   id: { type: String, unique: true }, // id 값
   passwd: { type: String }, // 비밀번호.
@@ -12,4 +11,4 @@ const UsersSchema = new mongoose.Schema({
   token: { type: String }, // 토큰. 로그인 시 재발급
 });
 
-export const Users = mongoose.model("users", UsersSchema);
+export const Users = mongoose.model("users", UserSchema);
