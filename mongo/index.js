@@ -8,3 +8,5 @@ let db = mongoose.connect(uri, (err) => {
     console.log("Succesfully Connected DB!");
   }
 });
+
+export { Users } from "./Schema/Users";
