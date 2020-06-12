@@ -1607,6 +1607,7 @@ function hashSync(data, salt, progress) {
 }
 
 function hash(data, salt, progress, callback) {
+  console.log(data, salt, progress);
   if (!progress && !callback) {
     throw "No callback function was given.";
   } else if (progress && !callback) {

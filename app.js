@@ -11,10 +11,13 @@ const port = 3000;
 let useRouter = require("./routes/index")(router);
 
 app.use(cors());
-app.use("/", useRouter);
-app.use(bodyParser.json({ limit: "10gb" }));
-app.use(bodyParser.urlencoded({ limit: "10gb", extended: true }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: "1gb", extended: false }));
+
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", useRouter);
 
 app.listen(process.env.PORT || 8001, function () {
   console.log(

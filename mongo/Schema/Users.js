@@ -9,6 +9,8 @@ const UserSchema = new mongoose.Schema({
   nick: { type: String, unique: true }, // 닉네임
   sex: { type: Boolean }, // 성별 false 여, true 남
   token: { type: String }, // 토큰. 로그인 시 재발급
+  termsChk: { type: Boolean, default: false },
+  eventChk: { type: Boolean, default: false },
 });
 
 export const Users = mongoose.model("users", UserSchema);
