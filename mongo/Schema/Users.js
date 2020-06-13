@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   uuid: { type: String }, // uuid 회원가입 시 발급, 재발급 X
   termsChk: { type: Boolean, default: false }, // 약관 동의
   eventChk: { type: Boolean, default: false }, // 이벤트 동의
-  profileImgUrl: { type: String },
+  profileImgUrl: { type: String, default: false },
 });
 
 export const Users = mongoose.model("users", UserSchema);
