@@ -22,13 +22,11 @@
 
     nick : 유저 닉네임 [String]
 
+    name : 유저 이름 실명 [String]
+
     sex :  유저 성별 [Boolean], sex ? 여 : 남
 
     token : 유저 토큰 [String]
-
-    termsChk : 약관 동의 [Boolean]
-
-    eventChk : 이벤트 수신 동의 [Boolean]
 
 > Response
 
@@ -119,3 +117,19 @@
     }
 
     HTTP 404 : { message : "token expiration or User Not Found" } // 로그인 실패
+
+- POST /termsCheck : 유저 약관 동의 ( 이벤트 수신 포함 )
+
+> Request
+
+    terms : 약관 동의 [Boolean]
+
+    event : 이벤트 수신 동의 [Boolean]
+
+> Response
+
+    HTTP 200 : { "message" : "success!" }
+
+    HTTP 209 : { "message" : "Non-Authoritative Information" }
+
+    HTTP 500 : { "message" : "ERR!" }

@@ -74,6 +74,28 @@ export const auth = {
       return res.status(200).json(user);
     }
   },
+  termsChk: async (req, res) => {
+    function strToBool(str) {
+      if (str === "true" || str === "TRUE") return true;
+      else return false;
+    }
+    if (!strToBool(req.body.terms))
+      return res.status(203).json({ message: "Non-Authoritative Information" });
+    try {
+      let result = await Users.update(
+        { token: req.body.token },
+        {
+          $set: {
+            termsChk: await strToBool(req.body.terms),
+            eventChk: await strToBool(req.body.event),
+          },
+        }
+      );
+      return res.status(200).json({ message: "success!" });
+    } catch (e) {
+      return res.status(500).json({ message: "ERR!" });
+    }
+  },
   aa: async (req, res) => {
     let result = await Users.find();
     res.send(result);
