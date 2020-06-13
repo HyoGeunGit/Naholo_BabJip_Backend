@@ -47,6 +47,7 @@ export const auth = {
       ...req.body,
       passwd: await pw(req.body.passwd),
       token: rndString.generate(25),
+      uuid: rndString.generate(38),
     };
     try {
       let newUser = new Users(json);

@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
   name: { type: String }, // 이름
   sex: { type: Boolean }, // 성별 false 여, true 남
   token: { type: String }, // 토큰. 로그인 시 재발급
+  uuid: { type: String }, // uuid 회원가입 시 발급, 재발급 X
   termsChk: { type: Boolean, default: false },
   eventChk: { type: Boolean, default: false },
 });
