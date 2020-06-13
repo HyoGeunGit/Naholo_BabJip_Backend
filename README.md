@@ -122,6 +122,8 @@
 
 > Request
 
+    token : 유저 토큰 [String]
+    
     terms : 약관 동의 [Boolean]
 
     event : 이벤트 수신 동의 [Boolean]
