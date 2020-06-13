@@ -11,8 +11,9 @@ const UserSchema = new mongoose.Schema({
   sex: { type: Boolean }, // 성별 false 여, true 남
   token: { type: String }, // 토큰. 로그인 시 재발급
   uuid: { type: String }, // uuid 회원가입 시 발급, 재발급 X
-  termsChk: { type: Boolean, default: false },
-  eventChk: { type: Boolean, default: false },
+  termsChk: { type: Boolean, default: false }, // 약관 동의
+  eventChk: { type: Boolean, default: false }, // 이벤트 동의
+  profileImgUrl: { type: String },
 });
 
 export const Users = mongoose.model("users", UserSchema);

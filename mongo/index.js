@@ -9,3 +9,4 @@ let db = mongoose.connect(uri, (err) => {
 });
 
 export { Users } from "./Schema/Users";
+export { BackupStories, Stories } from "./Schema/Stories";
