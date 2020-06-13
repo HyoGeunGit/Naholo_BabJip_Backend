@@ -4,7 +4,7 @@
 
 ## Server Developer: 박태욱
 
-## bCrypt Developer: 심효근
+## Secure Developer: 심효근
 
 - POST /signup : User register ( 유저 회원가입)
 
