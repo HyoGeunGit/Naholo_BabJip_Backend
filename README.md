@@ -26,8 +26,6 @@
 
     sex :  유저 성별 [Boolean], sex ? 여 : 남
 
-    token : 유저 토큰 [String]
-
 > Response
 
     HTTP 200 : 유저 데이터 // 성공
@@ -78,6 +76,8 @@
         "\_\_v": 0
     }
 
+    HTTP 203 : { "message" : "Non-Authoritative Information" } // 약관 미동의
+
     HTTP 404 : { message : "User Not Found! } // 로그인 실패
 
     HTTP 500 : { message : "ERR!" } // 서버 에러
@@ -94,9 +94,9 @@
 
     HTTP 409 : { message : "ID duplicate!" } // 사용 불가능
 
-- GET /autoLogin/:token : 유저 토큰 사용한 자동 로그인
+- POST /autoLogin/:token : 유저 토큰 사용한 자동 로그인
 
-> Params
+> Request
 
     token : 유저 토큰
 
@@ -116,6 +116,8 @@
         "\_\_v": 0
     }
 
+    HTTP 203 : { "message" : "Non-Authoritative Information" } // 약관 미동의
+
     HTTP 404 : { message : "token expiration or User Not Found" } // 로그인 실패
 
 - POST /termsCheck : 유저 약관 동의 ( 이벤트 수신 포함 )
@@ -130,6 +132,6 @@
 
     HTTP 200 : { "message" : "success!" }
 
-    HTTP 209 : { "message" : "Non-Authoritative Information" }
+    HTTP 203 : { "message" : "Non-Authoritative Information" }
 
     HTTP 500 : { "message" : "ERR!" }

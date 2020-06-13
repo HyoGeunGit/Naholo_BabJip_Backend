@@ -22,6 +22,10 @@ export const auth = {
       } catch (e) {
         return res.status(500).json({ message: "ERR!" });
       }
+      if (!user.termsChk)
+        return res
+          .status(203)
+          .json({ message: "Non-Authoritative Information" });
       return res.status(200).json(user);
     } else return res.status(404).json({ message: "User Not Found!" });
   },
@@ -64,12 +68,16 @@ export const auth = {
     else return res.status(409).json({ message: "ID duplicate!" });
   },
   autoLogin: async (req, res) => {
-    let user = await Users.findOne({ token: req.params.token });
+    let user = await Users.findOne({ token: req.body.token });
     if (!user)
       return res
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
+      if (!user.termsChk)
+        return res
+          .status(203)
+          .json({ message: "Non-Authoritative Information" });
       user.passwd = undefined;
       return res.status(200).json(user);
     }
