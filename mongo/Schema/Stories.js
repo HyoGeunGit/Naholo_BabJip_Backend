@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const StorySchema = new mongoose.Schema({
   userUUID: { type: String }, // 유저 uuid
+  storyUUID: { type: String },
   alreadyWatch: [{ userUUID: { type: String } }], // 본 사람
   imgUrl: { type: String }, // 스토리 이미지 url
   createdAt: { type: Date, default: Date.now() }, // 만들어진 시간
@@ -11,6 +12,7 @@ const StorySchema = new mongoose.Schema({
 });
 const BackupStorySchema = new mongoose.Schema({
   userUUID: { type: String }, // 유저 uuid
+  storyUUID: { type: String },
   alreadyWatch: [{ userUUID: { type: String } }], // 본 사람
   imgUrl: { type: String }, // 스토리 이미지 url
   createdAt: { type: Date, default: Date.now() }, // 만들어진 시간

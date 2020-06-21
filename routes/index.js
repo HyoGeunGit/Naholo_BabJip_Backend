@@ -1,6 +1,22 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
 import { Stories } from "../mongo";
+import rndstring from "randomstring";
+import multer from "multer";
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/"); //C:\\Users\\parktea\\Desktop\\17Appjam\\public
+  },
+  filename: (req, file, cb) => {
+    var newStr = rndstring.generate(33);
+    newStr = newStr + ".PNG";
+    cb(null, newStr);
+  },
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+});
+const upload = multer({ storage: storage });
 module.exports = (router) => {
   // router.get("/", auth.aa);
   router.post("/aa", auth.aa);
@@ -10,9 +26,10 @@ module.exports = (router) => {
   router.post("/termsCheck", auth.termsChk);
   router.post("/autoLogin", auth.autoLogin);
 
-  router.post("/addStroy", Story.add);
+  router.post("/addStroy", upload.single("img"), Story.add);
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);
+  router.post("/getStoryList", Story.getStoryList);
   router.get("/bb", Story.bb);
   router.get("/cc", Story.cc);
   return router;
