@@ -30,6 +30,7 @@ module.exports = (router) => {
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);
   router.post("/getStoryList", Story.getStoryList);
+  router.post("/delStory", Story.delStory);
   router.get("/bb", Story.bb);
   router.get("/cc", Story.cc);
   return router;

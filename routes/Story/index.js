@@ -1,7 +1,7 @@
 import { Users, Stories, BackupStories } from "../../mongo";
 import rndString from "randomstring";
 
-const url = "http://127.0.0.1:8001/public/";
+const url = "http://127.0.0.1:8001/";
 export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
@@ -54,7 +54,6 @@ export const Story = {
       });
     };
     const shuffle = (a) => {
-      console.log(a);
       return new Promise((resolve) => {
         var j, x, i;
         for (i = a.length; i; i -= 1) {
@@ -73,7 +72,6 @@ export const Story = {
         response.push(value);
       }
       shuffle(response).then((resList) => {
-        console.log(resList);
         if (resList.length >= 10) {
           resList.length = 10;
         }
@@ -85,10 +83,12 @@ export const Story = {
   },
   delStory: async (req, res) => {
     try {
-      let result = await Stories.findOne({
+      let result = await Stories.deleteOne({
         storyUUID: req.body.storyUUID,
-        token: req.body.token,
-      }).remove();
+      });
+      result = await BackupStories.deleteOne({
+        storyUUID: req.body.storyUUID,
+      });
       return res.status(200).json({ message: "success!" });
     } catch (e) {
       return res.status(500).json({ message: "ERR!" });
