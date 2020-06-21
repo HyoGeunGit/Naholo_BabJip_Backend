@@ -139,3 +139,146 @@
     HTTP 203 : { "message" : "Non-Authoritative Information" }
 
     HTTP 500 : { "message" : "ERR!" }
+
+- POST /addStory : 스토리 추가
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    img : 스토리 이미지 [Image file]
+
+> Response
+
+    HTTP 200 : { message : "success!"}
+
+    HTTP 500 : { message : "ERR!"}
+
+- POST /findUSerStory : 유저 스토리 찾기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : ex)
+    [
+        {
+            "createdAt": "2020-06-21T06:08:15.832Z",
+            "_id": "5eeef9629a71b7734268faff",
+            "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+            "userName": "51",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+            "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+            "alreadyWatch": [],
+            "__v": 0
+        },
+        {
+            "createdAt": "2020-06-21T06:08:15.832Z",
+            "_id": "5eeef9669a71b7734268fb01",
+            "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+            "userName": "51",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+            "storyUUID": "BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+            "alreadyWatch": [],
+            "__v": 0
+        }
+    ]
+
+    HTTP 404 : { message: "User Not Found!" }
+
+- POST /findUserBackupStory : 유저 백업된 스토리 찾기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : ex)
+    [
+        {
+            "createdAt": "2020-06-21T06:08:15.832Z",
+            "_id": "5eeef9629a71b7734268faff",
+            "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+            "userName": "51",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+            "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+            "alreadyWatch": [],
+            "__v": 0
+        },
+        {
+            "createdAt": "2020-06-21T06:08:15.832Z",
+            "_id": "5eeef9669a71b7734268fb01",
+            "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+            "userName": "51",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+            "storyUUID": "BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+            "alreadyWatch": [],
+            "__v": 0
+        }
+    ]
+
+    HTTP 404 : { message: "User Not Found!" }
+
+- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10명 )
+
+> Response
+
+    HTTP 200 :
+    [
+        [
+            {
+                "createdAt": "2020-06-21T06:08:15.832Z",
+                "_id": "5eeef9629a71b7734268faff",
+                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+                "userName": "51",
+                "userProfileImgUrl": "false",
+                "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+                "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
+                "alreadyWatch": [],
+                "__v": 0
+            },
+            {
+                "createdAt": "2020-06-21T06:08:15.832Z",
+                "_id": "5eeef9669a71b7734268fb01",
+                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+                "userName": "51",
+                "userProfileImgUrl": "false",
+                "imgUrl": "http://13.59.89.201:8001/BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+                "storyUUID": "BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
+                "alreadyWatch": [],
+                "__v": 0
+            },
+            {
+                "createdAt": "2020-06-21T06:08:15.832Z",
+                "_id": "5eeef9669a71b7734268fb03",
+                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
+                "userName": "51",
+                "userProfileImgUrl": "false",
+                "imgUrl": "http://13.59.89.201:8001/YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
+                "storyUUID": "YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
+                "alreadyWatch": [],
+                "__v": 0
+            }
+        ]
+    ]
+
+    HTTP 404 : { message : "Story Not Found!" } / 스토리가 하나도 없을 때
+
+- POST /delStory : 스토리 삭제
+
+> Request
+
+    storyUUID : 스토리 UUID [String]
+
+> Response
+
+    HTTP 200 : { message : "success!" }
+
+    HTTP 500 : { message : "ERR!" }
