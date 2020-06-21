@@ -26,7 +26,7 @@ module.exports = (router) => {
   router.post("/termsCheck", auth.termsChk);
   router.post("/autoLogin", auth.autoLogin);
 
-  router.post("/addStroy", upload.single("img"), Story.add);
+  router.post("/addStory", upload.single("img"), Story.add);
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);
   router.post("/getStoryList", Story.getStoryList);
