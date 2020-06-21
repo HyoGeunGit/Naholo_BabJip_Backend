@@ -1,7 +1,8 @@
 import { Users, Stories, BackupStories } from "../../mongo";
 import rndString from "randomstring";
 
-const url = "http://127.0.0.1:8001/";
+// const url = "http://127.0.0.1:8001/";
+const url = "http://13.59.89.201:8001/";
 export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
