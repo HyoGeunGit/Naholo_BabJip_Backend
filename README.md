@@ -282,3 +282,75 @@
     HTTP 200 : { message : "success!" }
 
     HTTP 500 : { message : "ERR!" }
+
+- POST /getCategory : 카테고리로 주변 음식점 검색
+
+> Request
+
+    lat: 위도,
+
+    lng: 경도,
+
+    category: 카테고리 ex) "치킨" [String],
+
+    range: 거리 (m)
+
+> Response
+
+    HTTP 200 :
+    [
+        {
+            "lat": 37.5433502,
+            "lng": 126.9727453,
+            "name": "충만치킨 숙대점",
+            "photo": ""
+        },
+        {
+            "lat": 37.5431159,
+            "lng": 126.9721216,
+            "name": "깐부치킨 원효로 리첸시아점",
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxheight=1600&maxwidth=1600&photoreference=CmRaAAAAKj7owAi7M0sxq0wekF_VgPfaVmGoa-eMyLDpwe4Q8MrGlX4dmoeSVADwuxLFam4gzyt5tklJM0lujohLCvcXTUX5SV36E-yWBNTN3qnYBYFtWDbE-FkhwMN5DgrD7jwIEhA0B6yoNAN3fCS8PcAnPuEvGhT_iK3HIYO4V77b-9skxCX2qnU7Mw&key=AIzaSyCcA57HoaeUaXF_JFqFpkYPg0nWWSYXR8s"
+        },
+        {
+            "lat": 37.5524196,
+            "lng": 126.9720926,
+            "name": "노랑통닭 서울역점 Norangtongdak Seoul Station",
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxheight=1600&maxwidth=1600&photoreference=CmRaAAAAdZulCpNMh9xHr2GtpXMAftSCWxiJsxle1-bAkV9LM0wbElthWWbZJOPNyXeS6R-SWVyY1Qv3oppfy1v95Fdz_MEs_D0FAXWQItTGEKRisPMrcuiWGspk7gvzzRiGF9ErEhAji70aThTwm2JVJX1jGT6HGhQn9Um0eHMXmj3vAQS1FMQpyWSauw&key=AIzaSyCcA57HoaeUaXF_JFqFpkYPg0nWWSYXR8s"
+        }
+
+    ]
+
+- POST /getPlace : 주변 음식점 검색
+
+> Request
+
+    lat: 위도,
+
+    lng: 경도,
+
+    range: 거리 (m)
+
+> Response
+
+    HTTP 200 :
+    [
+        {
+            "lat": 37.5433502,
+            "lng": 126.9727453,
+            "name": "충만치킨 숙대점",
+            "photo": ""
+        },
+        {
+            "lat": 37.5431159,
+            "lng": 126.9721216,
+            "name": "깐부치킨 원효로 리첸시아점",
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxheight=1600&maxwidth=1600&photoreference=CmRaAAAAKj7owAi7M0sxq0wekF_VgPfaVmGoa-eMyLDpwe4Q8MrGlX4dmoeSVADwuxLFam4gzyt5tklJM0lujohLCvcXTUX5SV36E-yWBNTN3qnYBYFtWDbE-FkhwMN5DgrD7jwIEhA0B6yoNAN3fCS8PcAnPuEvGhT_iK3HIYO4V77b-9skxCX2qnU7Mw&key=AIzaSyCcA57HoaeUaXF_JFqFpkYPg0nWWSYXR8s"
+        },
+        {
+            "lat": 37.5524196,
+            "lng": 126.9720926,
+            "name": "노랑통닭 서울역점 Norangtongdak Seoul Station",
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxheight=1600&maxwidth=1600&photoreference=CmRaAAAAdZulCpNMh9xHr2GtpXMAftSCWxiJsxle1-bAkV9LM0wbElthWWbZJOPNyXeS6R-SWVyY1Qv3oppfy1v95Fdz_MEs_D0FAXWQItTGEKRisPMrcuiWGspk7gvzzRiGF9ErEhAji70aThTwm2JVJX1jGT6HGhQn9Um0eHMXmj3vAQS1FMQpyWSauw&key=AIzaSyCcA57HoaeUaXF_JFqFpkYPg0nWWSYXR8s"
+        }
+
+    ]
