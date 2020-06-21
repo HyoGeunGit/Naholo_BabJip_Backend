@@ -1,6 +1,6 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
-import { Stories } from "../mongo";
+import { Place } from "./Place";
 import rndstring from "randomstring";
 import multer from "multer";
 var storage = multer.diskStorage({
@@ -33,5 +33,8 @@ module.exports = (router) => {
   router.post("/delStory", Story.delStory);
   router.get("/bb", Story.bb);
   router.get("/cc", Story.cc);
+
+  router.post("/getPlace", Place.find);
+  router.post("/getCategory", Place.category);
   return router;
 };
