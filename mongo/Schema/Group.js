@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const GroupSchema = new mongoose.Schema({
 	groupName: { type: String },
 	users: [{ type: Schema.Types.ObjectId, ref: "users" }],
-	place: { type: String },
+	lat: { type: String },
 	time: { type: Date },
 	iconnum: { type: Number },
 	food: { type: String },
