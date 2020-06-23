@@ -1,0 +1,14 @@
+import { Groups } from "../../mongo/Schema/Group";
+
+export const group = {
+	createGroup: async (req, res) => {
+		let user = await Users.findOne({ token: req.body.token });
+		if (!user) return res.status(404).json({ message: "token expiration or User Not Found" });
+		else {
+			let data = req.body;
+			let group = new Groups(data);
+			group = await group.save();
+			return res.status(201).json(group);
+		}
+	},
+};
