@@ -1,4 +1,5 @@
 import { Groups } from "../../mongo/Schema/Group";
+import { Users } from "../../mongo";
 
 export const group = {
 	createGroup: async (req, res) => {
@@ -7,6 +8,7 @@ export const group = {
 		else {
 			let data = req.body;
 			let group = new Groups(data);
+			group.users.push(user._id);
 			group = await group.save();
 			return res.status(201).json(group);
 		}
