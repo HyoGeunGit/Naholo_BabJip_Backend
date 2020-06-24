@@ -8,7 +8,7 @@
 
 ### Android: https://github.com/HyoGeunGit/NaholoBabJip_Android
 
-- POST /signup : User register ( 유저 회원가입)
+-   POST /signup : User register ( 유저 회원가입)
 
 > Params
 
@@ -54,7 +54,7 @@
 
     HTTP 500 : {message : "ERR!"} // 서버 에러
 
-- POST /signin : User Signin ( 유저 로그인 )
+-   POST /signin : User Signin ( 유저 로그인 )
 
 > Params
 
@@ -84,7 +84,7 @@
 
     HTTP 500 : { message : "ERR!" } // 서버 에러
 
-- POST /duplicateChk : 유저 아이디 중복확인
+-   POST /duplicateChk : 유저 아이디 중복확인
 
 > Request
 
@@ -96,7 +96,7 @@
 
     HTTP 409 : { message : "ID duplicate!" } // 사용 불가능
 
-- POST /autoLogin/:token : 유저 토큰 사용한 자동 로그인
+-   POST /autoLogin/:token : 유저 토큰 사용한 자동 로그인
 
 > Request
 
@@ -122,12 +122,12 @@
 
     HTTP 404 : { message : "token expiration or User Not Found" } // 로그인 실패
 
-- POST /termsCheck : 유저 약관 동의 ( 이벤트 수신 포함 )
+-   POST /termsCheck : 유저 약관 동의 ( 이벤트 수신 포함 )
 
 > Request
 
     token : 유저 토큰 [String]
-    
+
     terms : 약관 동의 [Boolean]
 
     event : 이벤트 수신 동의 [Boolean]
@@ -140,7 +140,7 @@
 
     HTTP 500 : { "message" : "ERR!" }
 
-- POST /addStory : 스토리 추가
+-   POST /addStory : 스토리 추가
 
 > Request
 
@@ -154,7 +154,7 @@
 
     HTTP 500 : { message : "ERR!"}
 
-- POST /findUSerStory : 유저 스토리 찾기
+-   POST /findUSerStory : 유저 스토리 찾기
 
 > Request
 
@@ -190,7 +190,7 @@
 
     HTTP 404 : { message: "User Not Found!" }
 
-- POST /findUserBackupStory : 유저 백업된 스토리 찾기
+-   POST /findUserBackupStory : 유저 백업된 스토리 찾기
 
 > Request
 
@@ -226,7 +226,7 @@
 
     HTTP 404 : { message: "User Not Found!" }
 
-- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10명 )
+-   POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10명 )
 
 > Response
 
@@ -271,7 +271,7 @@
 
     HTTP 404 : { message : "Story Not Found!" } / 스토리가 하나도 없을 때
 
-- POST /delStory : 스토리 삭제
+-   POST /delStory : 스토리 삭제
 
 > Request
 
@@ -283,7 +283,7 @@
 
     HTTP 500 : { message : "ERR!" }
 
-- POST /getCategory : 카테고리로 주변 음식점 검색
+-   POST /getCategory : 카테고리로 주변 음식점 검색
 
 > Request
 
@@ -320,7 +320,7 @@
 
     ]
 
-- POST /getPlace : 주변 음식점 검색
+-   POST /getPlace : 주변 음식점 검색
 
 > Request
 
@@ -354,3 +354,57 @@
         }
 
     ]
+
+-   POST /createGroup : 그룹 생성
+
+> Request
+
+    token: 토큰,
+
+    lat: 위도,
+
+    lng: 경도,
+
+    groupName: 그룹 이름,
+
+    time: 시간,
+
+    iconnum: 아이콘 번호,
+
+    food: 음식
+
+> Response
+
+    HTTP 201 :
+    {
+    "users": [],
+    "_id": "5ef1f47692026608100c2848",
+    "groupName": "yhea",
+    "lat": "0",
+    "lng": "0",
+    "time": "1999-12-31T15:00:00.000Z",
+    "iconnum": 0,
+    "food": "0",
+    "__v": 0
+    }
+
+-   POST /readGroup : 그룹 가져오기
+
+> Request
+
+    token: 토큰,
+
+> Response
+
+    HTTP 201 :
+    [{
+    "users": [],
+    "_id": "5ef1f47692026608100c2848",
+    "groupName": "yhea",
+    "lat": "0",
+    "lng": "0",
+    "time": "1999-12-31T15:00:00.000Z",
+    "iconnum": 0,
+    "food": "0",
+    "__v": 0
+    }]
