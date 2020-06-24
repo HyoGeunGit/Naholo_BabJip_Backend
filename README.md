@@ -1,10 +1,12 @@
 # 나홀로 밥집
 
-### MEMBER: 심효근, 박태욱, 이유진, 이민혁, 임수민, 강은서
+### MEMBER: 심효근, 박태욱, 이유진, 이민혁, 임수민, 강은서, 박종훈
 
 ## Server Developer: PM-박태욱, 박종훈
 
 ## bCrypt Developer: PM-심효근
+
+### Android: https://github.com/HyoGeunGit/NaholoBabJip_Android
 
 - POST /signup : User register ( 유저 회원가입)
 
@@ -123,6 +125,8 @@
 - POST /termsCheck : 유저 약관 동의 ( 이벤트 수신 포함 )
 
 > Request
+
+    token : 유저 토큰 [String]
 
     terms : 약관 동의 [Boolean]
 
