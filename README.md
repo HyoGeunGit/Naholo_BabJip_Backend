@@ -361,9 +361,9 @@
 
     ]
 
-- get /getDetail/:place_id : 음식점 상세 정보
+- POST /getDetail/:place_id : 음식점 상세 정보
 
-> Params
+> Request
 
     place_id : 음식점 코드
 

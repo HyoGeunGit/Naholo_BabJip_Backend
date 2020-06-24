@@ -36,6 +36,6 @@ module.exports = (router) => {
 
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
-  router.get("/getDetail/:place_id", Place.detail);
+  router.post("/getDetail", Place.detail);
   return router;
 };

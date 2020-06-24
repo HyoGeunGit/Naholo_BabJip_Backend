@@ -73,7 +73,7 @@ export const Place = {
     });
   },
   detail: async (req, res) => {
-    let url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${req.params.place_id}&language=ko&fields=name,rating,vicinity,formatted_phone_number,opening_hours,review,price_level,photo&key=${key}`;
+    let url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${req.body.place_id}&language=ko&fields=name,rating,vicinity,formatted_phone_number,opening_hours,review,price_level,photo&key=${key}`;
     let result = await axios.get(url);
     const getData = () => {
       return new Promise(async (resolve) => {
