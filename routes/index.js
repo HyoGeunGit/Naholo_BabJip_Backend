@@ -3,20 +3,7 @@ import { Story } from "./Story";
 import { Place } from "./Place";
 import rndstring from "randomstring";
 import multer from "multer";
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/"); //C:\\Users\\parktea\\Desktop\\17Appjam\\public
-  },
-  filename: (req, file, cb) => {
-    var newStr = rndstring.generate(33);
-    newStr = newStr + ".PNG";
-    cb(null, newStr);
-  },
-  limits: {
-    fileSize: 10 * 1024 * 1024,
-  },
-});
-const upload = multer({ storage: storage });
+import { bucket } from "../func/firebase/storage";
 module.exports = (router) => {
   // router.get("/", auth.aa);
   router.post("/aa", auth.aa);
@@ -26,7 +13,7 @@ module.exports = (router) => {
   router.post("/termsCheck", auth.termsChk);
   router.post("/autoLogin", auth.autoLogin);
 
-  router.post("/addStory", upload.single("img"), Story.add);
+  router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);
   router.post("/getStoryList", Story.getStoryList);
@@ -37,5 +24,15 @@ module.exports = (router) => {
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
+
+  router.get("/asdf", async (req, res) => {
+    const config = {
+      action: "list",
+      expires: "03-17-2025",
+    };
+    bucket.getSignedUrl(config).then((data) => {
+      return res.send(data[0]);
+    });
+  });
   return router;
 };
