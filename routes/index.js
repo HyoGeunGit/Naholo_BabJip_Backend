@@ -3,6 +3,7 @@ import { Story } from "./Story";
 import { Place } from "./Place";
 import rndstring from "randomstring";
 import multer from "multer";
+import { group } from "./Groups";
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/"); //C:\\Users\\parktea\\Desktop\\17Appjam\\public
@@ -40,6 +41,7 @@ module.exports = (router) => {
 
   router.post("/createGroup", group.createGroup);
   router.post("/readGroup", group.readGroup);
-  
+  router.post("/joinGroup", group.joinGroup);
+
   return router;
 };

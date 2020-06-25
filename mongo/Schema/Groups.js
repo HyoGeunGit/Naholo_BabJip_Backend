@@ -5,7 +5,8 @@ const GroupSchema = new mongoose.Schema({
   users: [{ type: Schema.Types.ObjectId, ref: "users" }],
   lat: { type: String },
   lng: { type: String },
-  time: { type: Date },
+  startTime: { type: Date },
+  endTime: { type: Date },
   iconnum: { type: Number },
   food: { type: String },
 });

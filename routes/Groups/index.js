@@ -1,5 +1,4 @@
-import { Groups } from "../../mongo/Schema/Group";
-import { Users } from "../../mongo";
+import { Users, Groups } from "../../mongo";
 
 export const group = {
   createGroup: async (req, res) => {
@@ -18,7 +17,16 @@ export const group = {
     if (!user) return res.status(404).json({ message: "token expiration or User Not Found" });
     else {
       let groups = await Groups.find();
-      return res.status(201).json(groups);
+      return res.status(200).json(groups);
+    }
+  },
+  joinGroup: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    let group = await Groups.findOne({ token: req.body.groupToken });
+    if (!user) return res.status(404).json({ message: "token expiration or User Not Found" });
+    else {
+      group.users.push(user._id);
+      return res.status(200).json(group);
     }
   },
 };

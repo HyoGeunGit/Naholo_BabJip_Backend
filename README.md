@@ -443,3 +443,93 @@
         ]
 
     }
+
+- POST /createGroup : 그룹 생성
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupName : 그룹 이름 [String]
+
+    lat : 경도 [Number]
+
+    lng : 위도 [Number]
+
+    startTime : 시작 시간 [Date]
+
+    endTime : 종료 시간 [Date]
+
+    iconnum : 아이콘 종류 [Number]
+
+    food : 음식 이름 [String]
+
+> Response
+
+    HTTP 201 : ex)
+    {
+        "users": [
+            "user._id"...
+        ],
+        "_id": "5ef46a3e5f86ed59dca10ac1",
+        "groupName": "groupName",
+        "lat": "0",
+        "lng": "0",
+        "startTime": "1970-01-01T00:00:00.000Z",
+        "endTime": "1970-01-01T00:00:00.000Z",
+        "iconnum": 0,
+        "food": "food",
+        "__v": 0
+    }
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readGroup : 그룹 리스트 가져오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : ex)
+    [{
+        "users": [
+            "user._id"...
+        ],
+        "_id": "5ef46a3e5f86ed59dca10ac1",
+        "groupName": "groupName",
+        "lat": "0",
+        "lng": "0",
+        "startTime": "1970-01-01T00:00:00.000Z",
+        "endTime": "1970-01-01T00:00:00.000Z",
+        "iconnum": 0,
+        "food": "food",
+        "__v": 0
+    }]
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /joinGroup : 그룹 가입
+
+> Request
+
+    token : 유저 토큰 [String]
+    groupToken : group._id [ObjectID]
+
+> Response
+
+    HTTP 200 : ex)
+    {
+        "users": [
+            "user._id"... + "my user _id"
+        ],
+        "_id": "5ef46a3e5f86ed59dca10ac1",
+        "groupName": "groupName",
+        "lat": "0",
+        "lng": "0",
+        "startTime": "1970-01-01T00:00:00.000Z",
+        "endTime": "1970-01-01T00:00:00.000Z",
+        "iconnum": 0,
+        "food": "food",
+        "__v": 0
+    }
+    HTTP 404 : { message: "token expiration or User Not Found" }
