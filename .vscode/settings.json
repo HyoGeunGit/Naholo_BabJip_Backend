@@ -1,0 +1,5 @@
+{
+	"deno.enable": false,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": false
+}
