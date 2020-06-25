@@ -4,6 +4,8 @@ import { Place } from "./Place";
 import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
+import { passport, Social } from "./Auth/Social";
+// require("./Auth/Social");
 module.exports = (router) => {
   // router.get("/", auth.aa);
   router.post("/aa", auth.aa);
@@ -13,6 +15,20 @@ module.exports = (router) => {
   router.post("/termsCheck", auth.termsChk);
   router.post("/autoLogin", auth.autoLogin);
 
+  router.post(
+    "/social/facebook",
+    passport.authenticate("facebook", {
+      scope: ["user_friends", "manage_pages"],
+    }),
+    Social.facebook
+  );
+  router.get(
+    "/social/facebookTest",
+    passport.authenticate("facebook", {
+      failureRedirect: "/asdf",
+    }),
+    Social.facebookTest
+  );
   router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);

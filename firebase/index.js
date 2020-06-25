@@ -8,3 +8,4 @@ admin.initializeApp({
 });
 
 export default admin;
+// 이 파일 제거 가능하지만 추천 안함
