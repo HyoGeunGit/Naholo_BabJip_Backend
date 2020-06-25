@@ -3,7 +3,7 @@ const { Storage } = require("@google-cloud/storage");
 const gcs = new Storage({
   keyFilename: path.join(
     __dirname,
-    "../../path/gcsKey/Nahollo-Babjip-de7a028d9723.json"
+    "../../path/gcsKey/Naholo-Babjip-6a0a4fba2081.json"
   ),
   projectId: "Nahollo-Babjip",
 });

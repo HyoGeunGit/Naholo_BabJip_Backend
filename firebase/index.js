@@ -1,11 +1,10 @@
 import * as admin from "firebase-admin";
-var serviceAccount = require("../path/nahollo-babjip-firebase-adminsdk-ujxid-688e218164.json");
+var serviceAccount = require("../path/naholo-babjip-firebase-adminsdk-atcf5-757cc90900");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://nahollo-babjip.firebaseio.com",
-  storageBucket: "nahollo-babjip.appspot.com/",
+  databaseURL: "https://naholo-babjip.firebaseio.com",
 });
 
-export default admin;
+export { admin };
 // 이 파일 제거 가능하지만 추천 안함

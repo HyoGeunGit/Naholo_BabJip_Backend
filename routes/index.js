@@ -5,6 +5,7 @@ import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
 import { passport, Social } from "./Auth/Social";
+import { admin } from "../firebase/index";
 // require("./Auth/Social");
 module.exports = (router) => {
   // router.get("/", auth.aa);
@@ -15,20 +16,19 @@ module.exports = (router) => {
   router.post("/termsCheck", auth.termsChk);
   router.post("/autoLogin", auth.autoLogin);
 
-  router.post(
-    "/social/facebook",
-    passport.authenticate("facebook", {
-      scope: ["user_friends", "manage_pages"],
-    }),
-    Social.facebook
-  );
-  router.get(
-    "/social/facebookTest",
-    passport.authenticate("facebook", {
-      failureRedirect: "/asdf",
-    }),
-    Social.facebookTest
-  );
+  router.post("/social/facebook", (req, res) => {
+    console.log(req.body);
+    admin
+      .auth()
+      .verifyIdToken(req.body.token)
+      .then((decodedToken) => {
+        console.log(decodedToken);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(404).json({ message: "User Not Found!" });
+      });
+  });
   router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
   router.post("/findUserBackupStory", Story.findUserBackupStory);
