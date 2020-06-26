@@ -483,7 +483,11 @@
     }
     HTTP 404 : { message: "token expiration or User Not Found" }
 
-- POST /readGroup : 그룹 리스트 가져오기
+- POST /readGroup/:index : 그룹 10개씩 가져오기
+
+> Params
+
+    index : 페이지 수 [Number]
 
 > Request
 
@@ -508,11 +512,21 @@
     }]
     HTTP 404 : { message: "token expiration or User Not Found" }
 
+- POST /readGroup/maxPage : 그룹 10개씩 가져오기
+
+> Response
+
+    HTTP 200 : ex)
+    {
+        maxPage: index [Number]
+    }
+
 - POST /joinGroup : 그룹 가입
 
 > Request
 
     token : 유저 토큰 [String]
+
     groupToken : group._id [ObjectID]
 
 > Response
@@ -532,4 +546,33 @@
         "food": "food",
         "__v": 0
     }
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /searchGroup : 그룹 검색
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupName : 그룹 이름 [String]
+
+    food : 음식 이름 [String]
+
+> Response
+
+    HTTP 200 : ex)
+    [{
+        "users": [
+            "user._id"... + "my user _id"
+        ],
+        "_id": "5ef46a3e5f86ed59dca10ac1",
+        "groupName": "groupName",
+        "lat": "0",
+        "lng": "0",
+        "startTime": "1970-01-01T00:00:00.000Z",
+        "endTime": "1970-01-01T00:00:00.000Z",
+        "iconnum": 0,
+        "food": "food",
+        "__v": 0
+    }]
     HTTP 404 : { message: "token expiration or User Not Found" }
