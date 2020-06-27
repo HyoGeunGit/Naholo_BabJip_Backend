@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
   termsChk: { type: Boolean, default: false }, // 약관 동의
   eventChk: { type: Boolean, default: false }, // 이벤트 동의
   profileImgUrl: { type: String, default: false },
+  social: { type: String }, // facebook, google, kakao
 });
 
 export const Users = mongoose.model("users", UserSchema);

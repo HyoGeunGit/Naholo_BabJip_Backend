@@ -16,6 +16,7 @@ module.exports = (router) => {
   router.post("/autoLogin", auth.autoLogin);
 
   router.post("/social/facebook", Social.facebook);
+  router.post("/social/google", Social.google);
 
   router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
