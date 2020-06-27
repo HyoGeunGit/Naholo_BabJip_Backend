@@ -23,6 +23,7 @@
     "geo-distance": "^0.2.0",
     "global": "^4.4.0",
     "googleapis": "^52.1.0",
+    "http": "^0.0.1-security",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "mongoat": "^2.0.7",
@@ -34,6 +35,7 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-kakao-token": "^0.1.5",
     "path": "^0.12.7",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "socket.io": "^2.3.0"
   }
 }
