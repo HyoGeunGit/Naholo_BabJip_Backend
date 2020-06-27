@@ -1,6 +1,7 @@
 import { Users } from "../../mongo";
 import { admin } from "../../firebase/index";
 import rndString from "randomstring";
+import passport from "passport";
 
 const FindORSearch = (req, res, info) => {
   return new Promise(async (resolve, reject) => {
@@ -60,6 +61,22 @@ const Social = {
         console.log(err);
         return res.status(404).json({ message: "User Not Found!" });
       });
+  },
+  kakao: async (req, res) => {
+    let { user } = req;
+    console.log();
+    if (!user) return res.status(404).json({ message: "User Not Found!" });
+    return returnSuccess(
+      req,
+      res,
+      {
+        name: user.properties.nickname,
+        email: user.kakao_account.email,
+        uid: user.id,
+        profileImgUrl: user.properties.profile_image,
+      },
+      "kakao"
+    );
   },
 };
 export { Social };

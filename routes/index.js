@@ -5,6 +5,7 @@ import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
 import { Social } from "./Auth/Social";
+import passport from "passport";
 // require("./Auth/Social");
 module.exports = (router) => {
   // router.get("/", auth.aa);
@@ -17,6 +18,7 @@ module.exports = (router) => {
 
   router.post("/social/facebook", Social.facebook);
   router.post("/social/google", Social.google);
+  router.post("/social/kakao", passport.authenticate("kakao-token", { session: false }), Social.kakao);
 
   router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
