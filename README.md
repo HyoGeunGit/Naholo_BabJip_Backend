@@ -458,7 +458,45 @@
         email: 소셜 사용자 이메일
         uuid: 소셜 사용자 uuid
         profileImgUrl: 소셜 사용자 profileImg
-        social: "kakao, facebook, google 중 하나"
+        social: "facebook, google 중 하나"
+    }
+
+    HTTP 201 : 토큰 확인, 이미 있는 유저
+    {
+        birth: "ㄴㅁㅇㅁㄴㅇ"
+        email: "baduk32127@gmail.com"
+        eventChk: true
+        id: "baduk32127@gmail.com"
+        name: "박태욱"
+        nick: "펭귄"
+        profileImgUrl: "false"
+        sex: true
+        termsChk: true
+        token: "uA5xYqe1y0T02xKNUmGyma3em"
+        uuid: "zEendQ3CEKVCDy6VAu0XhqIXHPt1"
+    }
+
+    HTTP 401 : Social 유저가 이메일을 등록하지 않음
+    { message: "Exception Email" }
+
+    HTTP 404 : 토큰 미확인
+    { message: "User Not Found!" }
+
+- POST /social/kakao?access_token=KAKAO_TOKEN : 카카오 소셜 토큰 검증
+
+> Querys
+
+    access_token : AccessToken
+
+> Response
+
+    HTTP 200 : 토큰 확인
+    {
+        name: 소셜 사용자 이름
+        email: 소셜 사용자 이메일
+        uuid: 소셜 사용자 uuid
+        profileImgUrl: 소셜 사용자 profileImg
+        social: "kakao"
     }
 
     HTTP 201 : 토큰 확인, 이미 있는 유저
