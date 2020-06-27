@@ -39,7 +39,7 @@ passport.use(
 app.use(passport.initialize());
 
 app.use("/", useRouter);
-require("./routes/Matching/index.js")(socket, io);
+require("./routes/Matching/index.js")(io);
 server.listen(process.env.PORT || 8001, function () {
   console.log(
     "Express server listening on port %d in %s mode",
