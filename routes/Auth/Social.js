@@ -3,28 +3,44 @@ import { admin } from "../../firebase/index";
 import rndString from "randomstring";
 import passport from "passport";
 
-const FindORSearch = (req, res, info) => {
+const FindORSearch = (req, res) => {
   return new Promise(async (resolve, reject) => {
-    let user = await Users.findOne({ uuid: info.uid });
-    if (user) resolve(user);
+    let user = await Users.findOne({ uuid: req.body.uuid });
+    if (user) return res.status(409).json({ message: "User duplicate!" });
     else {
       let new_user = {
-        name: info.name,
-        email: info.email,
-        uuid: info.uid,
+        name: req.body.name,
+        id: req.body.email,
+        email: req.body.email,
+        sex: req.body.sex,
+        nick: req.body.nick,
+        birth: req.body.birth,
+        uuid: req.body.uuid,
+        password: rndString.generate(30),
+        token: rndString.generate(25),
         termsChk: true,
         eventChk: true,
-        //password
-
-        // phone
-        // birth
-        // sex
       };
+      try {
+        new_user = new Users(new_user);
+        let result = await new_user.save();
+        return res.status(200).json(new_user);
+      } catch (e) {
+        return e.code === 11000
+          ? res
+              .status(409)
+              .json({ message: "User duplicate!", duplicateKey: e.keyValue })
+          : res.status(500).json({ message: "ERR!" });
+      }
     }
   });
 };
 async function returnSuccess(req, res, info, social) {
-  if (!info.email) return res.status(401).json({ message: "Exception Email" });
+  let user = await Users.findOne({ uuid: info.uid });
+  if (user) {
+    return res.status(201).json(user);
+  } else if (!info.email)
+    return res.status(401).json({ message: "Exception Email" });
   else {
     return res.status(200).json({
       name: info.name,
@@ -36,6 +52,9 @@ async function returnSuccess(req, res, info, social) {
   }
 }
 const Social = {
+  verifyThen: async (req, res) => {
+    FindORSearch(req, res);
+  },
   facebook: async (req, res) => {
     admin
       .auth()

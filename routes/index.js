@@ -18,7 +18,12 @@ module.exports = (router) => {
 
   router.post("/social/facebook", Social.facebook);
   router.post("/social/google", Social.google);
-  router.post("/social/kakao", passport.authenticate("kakao-token", { session: false }), Social.kakao);
+  router.post(
+    "/social/kakao",
+    passport.authenticate("kakao-token", { session: false }),
+    Social.kakao
+  );
+  router.post("/social/veritySave", Social.verifyThen);
 
   router.post("/addStory", Story.add);
   router.post("/findUserStory", Story.findUserStory);
