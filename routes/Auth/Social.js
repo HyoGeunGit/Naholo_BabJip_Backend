@@ -6,8 +6,9 @@ import passport from "passport";
 const FindORSearch = (req, res) => {
   return new Promise(async (resolve, reject) => {
     let user = await Users.findOne({ uuid: req.body.uuid });
-    if (user) return res.status(409).json({ message: "User duplicate!" });
-    else {
+    if (user) {
+      return res.status(409).json({ message: "User duplicate!" });
+    } else {
       let new_user = {
         name: req.body.name,
         id: req.body.email,
@@ -16,6 +17,8 @@ const FindORSearch = (req, res) => {
         nick: req.body.nick,
         birth: req.body.birth,
         uuid: req.body.uuid,
+        phone: req.body.phone,
+
         password: rndString.generate(30),
         token: rndString.generate(25),
         termsChk: true,
@@ -60,12 +63,9 @@ const Social = {
       .auth()
       .verifyIdToken(req.body.token)
       .then((decodedToken) => {
-        console.log(decodedToken);
-        console.log(decodedToken.firebase.identities);
         return returnSuccess(req, res, decodedToken, "facebook");
       })
       .catch((err) => {
-        console.log(err);
         return res.status(404).json({ message: "User Not Found!" });
       });
   },
@@ -77,13 +77,11 @@ const Social = {
         return returnSuccess(req, res, decodedToken, "google");
       })
       .catch((err) => {
-        console.log(err);
         return res.status(404).json({ message: "User Not Found!" });
       });
   },
   kakao: async (req, res) => {
     let { user } = req;
-    console.log();
     if (!user) return res.status(404).json({ message: "User Not Found!" });
     return returnSuccess(
       req,

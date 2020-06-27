@@ -444,7 +444,7 @@
 
     }
 
-- POST /social/[google, facebook, kakao] : 소셜 토큰 검증
+- POST /social/[google, facebook] : 소셜 토큰 검증
 
 > Request
 
@@ -491,6 +491,8 @@
     email: 토큰 검증에서 받은 email
 
     nick: 유저 닉네임
+
+    phone: 유저 핸드폰
 
     birth: 유저 생일
 
