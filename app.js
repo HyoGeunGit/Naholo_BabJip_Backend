@@ -4,6 +4,9 @@ import cors from "cors";
 import path from "path";
 import moment from "moment";
 import "moment-timezone";
+import passport from "passport";
+import { Strategy as KakaoStrategy } from "passport-kakao-token";
+
 require("./mongo");
 let app = express();
 let router = express.Router();
@@ -17,14 +20,23 @@ app.use(bodyParser.urlencoded({ limit: "1gb", extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
 
+passport.use(
+  new KakaoStrategy(
+    {
+      clientID: "28066e4d44aac43615d832a105498181",
+      clientSecret: "6kpg6kiYjAvMr3eL5O2T6XHJIjL4d6Fd",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      done(null, profile._json);
+    }
+  )
+);
+app.use(passport.initialize());
+
 app.use("/", useRouter);
 
 app.listen(process.env.PORT || 8001, function () {
-  console.log(
-    "Express server listening on port %d in %s mode",
-    this.address().port,
-    app.settings.env
-  );
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
 export default app;
