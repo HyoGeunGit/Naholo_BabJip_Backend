@@ -1,6 +1,7 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
 import { Place } from "./Place";
+import { Group } from "./Groups";
 import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
@@ -18,11 +19,7 @@ module.exports = (router) => {
 
   router.post("/social/facebook", Social.facebook);
   router.post("/social/google", Social.google);
-  router.post(
-    "/social/kakao",
-    passport.authenticate("kakao-token", { session: false }),
-    Social.kakao
-  );
+  router.post("/social/kakao", passport.authenticate("kakao-token", { session: false }), Social.kakao);
   router.post("/social/veritySave", Social.verifyThen);
 
   router.post("/addStory", Story.add);
@@ -36,6 +33,12 @@ module.exports = (router) => {
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
+
+  router.post("/createGroup", Group.createGroup);
+  router.post("/readGroup/:index", Group.readGroup);
+  router.post("/readGroup/maxPage", Group.readGroupMaxPage);
+  router.post("/joinGroup", Group.joinGroup);
+  router.post("/searchGroup", Group.searchGroup);
 
   router.get("/asdf", async (req, res) => {
     const config = {
