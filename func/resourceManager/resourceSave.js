@@ -1,18 +1,14 @@
-import path, { dirname } from "path";
+import path from "path";
 import { promises as fs } from "fs";
-import mkdirp from "mkdirp";
-
 /**
  * @description /public/${filename} 에 file을 저장합니다.
- * @param {String}filename 파일 이름 또는 경로
- * @param {Buffer}file 파일 버퍼
- * @return {String} 파일 경로
+ * @param filename 파일 이름
+ * @param file 파일 버퍼
  */
-export default async function saveResource(filename, file) {
+export default async function resourceSave(filename, file) {
   // file path
-  let filepath = path.join("public", filename);
+  let filepath = path.join("./public", filename);
   try {
-    let mkdirResult = await mkdirp(path.dirname(filepath));
     // 파일 상태
     let tFile = await fs.stat(filepath);
     // 파일이 있으면

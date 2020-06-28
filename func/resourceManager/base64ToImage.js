@@ -1,7 +1,7 @@
 /**
  * @description base64를 이미지파일로 변환
  * @param base64
- * @returns {{imgFile:Buffer, imgType:String}}
+ * @returns {imgFile:fileBuffer,imgType:jpeg|png|gif...}
  */
 export default function base64ToImage(base64) {
   let splitData = base64.split(",");
