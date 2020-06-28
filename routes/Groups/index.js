@@ -1,6 +1,16 @@
 import { Users, Groups } from "../../mongo";
+import rndString from "randomstring";
 
+async function getUserNick(arr) {
+  let returnArr = [];
+  let result = await Users.inventory.insertMany(arr);
+  return result;
+}
 export const Group = {
+  ff: async (req, res) => {
+    let result = await Groups.find();
+    return res.json(result);
+  },
   addGroup: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
@@ -10,9 +20,9 @@ export const Group = {
     else {
       let data = req.body;
       let group = new Groups(data);
-      group.users.push(user._id);
+      group.users.push({ uuid: user.uuid });
       group = await group.save();
-      return res.status(201).json(group);
+      return res.status(200).json(group);
     }
   },
   readGroup: async (req, res) => {
@@ -57,7 +67,7 @@ export const Group = {
     };
     if (!user)
       return res
-        .status(404)a
+        .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
       let groups = await Groups.find(searchData);

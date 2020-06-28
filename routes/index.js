@@ -33,7 +33,7 @@ module.exports = (router) => {
   router.post("/delStory", Story.delStory);
   router.get("/bb", Story.bb);
   router.get("/cc", Story.cc);
-
+  router.post("/ff", Group.ff);
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
