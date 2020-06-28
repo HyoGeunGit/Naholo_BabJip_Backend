@@ -23,6 +23,7 @@
     "geo-distance": "^0.2.0",
     "global": "^4.4.0",
     "googleapis": "^52.1.0",
+    "mkdirp": "^1.0.4",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "mongoat": "^2.0.7",
