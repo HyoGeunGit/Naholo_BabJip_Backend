@@ -13,6 +13,7 @@
     "@google-cloud/storage": "^5.1.1",
     "axios": "^0.19.2",
     "babel-cli": "^6.26.0",
+    "babel-node": "^0.0.1-security",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.19.0",
