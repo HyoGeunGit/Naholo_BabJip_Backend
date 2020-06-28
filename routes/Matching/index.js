@@ -1,6 +1,6 @@
 module.exports = matching;
 
-function matching(socket, io) {
+function matching(io) {
   let matchingOneToOne = [];
 
   io.on("connection", (socket) => {
