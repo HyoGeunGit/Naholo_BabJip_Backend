@@ -18,11 +18,7 @@ module.exports = (router) => {
 
   router.post("/social/facebook", Social.facebook);
   router.post("/social/google", Social.google);
-  router.post(
-    "/social/kakao",
-    passport.authenticate("kakao-token", { session: false }),
-    Social.kakao
-  );
+  router.post("/social/kakao", passport.authenticate("kakao-token", { session: false }), Social.kakao);
   router.post("/social/veritySave", Social.verifyThen);
 
   router.post("/addStory", Story.add);
@@ -36,6 +32,12 @@ module.exports = (router) => {
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
+
+  router.post("/createGroup", group.createGroup);
+  router.post("/readGroup/:index", group.readGroup);
+  router.post("/readGroup/maxPage", group.readGroupMaxPage);
+  router.post("/joinGroup", group.joinGroup);
+  router.post("/searchGroup", group.searchGroup);
 
   router.get("/asdf", async (req, res) => {
     const config = {
