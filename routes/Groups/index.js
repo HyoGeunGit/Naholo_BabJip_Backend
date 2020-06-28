@@ -1,6 +1,6 @@
 import { Users, Groups } from "../../mongo";
 
-export const group = {
+export const Group = {
   createGroup: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "token expiration or User Not Found" });

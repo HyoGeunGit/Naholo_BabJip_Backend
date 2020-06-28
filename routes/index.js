@@ -1,6 +1,7 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
 import { Place } from "./Place";
+import { Group } from "./Groups";
 import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
@@ -33,11 +34,11 @@ module.exports = (router) => {
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
 
-  router.post("/createGroup", group.createGroup);
-  router.post("/readGroup/:index", group.readGroup);
-  router.post("/readGroup/maxPage", group.readGroupMaxPage);
-  router.post("/joinGroup", group.joinGroup);
-  router.post("/searchGroup", group.searchGroup);
+  router.post("/createGroup", Group.createGroup);
+  router.post("/readGroup/:index", Group.readGroup);
+  router.post("/readGroup/maxPage", Group.readGroupMaxPage);
+  router.post("/joinGroup", Group.joinGroup);
+  router.post("/searchGroup", Group.searchGroup);
 
   router.get("/asdf", async (req, res) => {
     const config = {
