@@ -1,10 +1,15 @@
 import { Users, Groups } from "../../mongo";
 import rndString from "randomstring";
+import produce from "immer";
 
 async function getUserNick(arr) {
+  let result = await Users.find({ $or: arr });
   let returnArr = [];
-  let result = await Users.find(arr);
-  return result;
+  await result.map((item) => {
+    let { profileImgUrl, nick } = item;
+    returnArr.push({ profileImgUrl, nick });
+  });
+  return returnArr;
 }
 export const Group = {
   ff: async (req, res) => {
@@ -22,6 +27,8 @@ export const Group = {
       let group = new Groups(data);
       group.groupUUID = rndString.generate(40);
       group.users.push({ uuid: user.uuid });
+      user.groups.push({ groupUUID: group.groupUUID, groupType: "group" });
+      user = await user.save();
       group = await group.save();
       return res.status(200).json(group);
     }
@@ -66,9 +73,21 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
-    let userNick = await getUserNick(group.user);
-    console.log(userNick);
-    return res.status(200).json(group);
+    let userNick = await getUserNick(group.users);
+    return res.status(200).json({
+      ...group._doc,
+      users: userNick,
+    });
+  },
+  readUserGroup: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "token expiration or User Not Found" });
+    console.log(user.groups);
+    let userGroups = await Groups.find(user.groups);
+    return res.status(200).json(userGroups);
   },
   joinGroup: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
@@ -78,7 +97,7 @@ export const Group = {
         .json({ message: "token expiration or User Not Found" });
     else {
       let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
-      if (group.user.length >= group.maximum)
+      if (group.users.length >= group.maximum)
         return res
           .status(413)
           .json({ message: "The number of people is exceeded!" });
@@ -90,7 +109,7 @@ export const Group = {
         return res.status(409).json({ message: "User Duplicate!" });
       if (!group) return res.status(404).json({ message: "Group Not Found" });
       else {
-        group.users.push({ _id: user._id, uuid: user.uuid });
+        group.users.push({ uuid: user.uuid });
         user.groups.push({ groupUUID: req.body.groupUUID, groupType: "group" });
         let result = await user.save();
         return res.status(200).json(await group.save());
