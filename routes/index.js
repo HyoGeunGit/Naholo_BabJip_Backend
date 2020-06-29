@@ -19,7 +19,11 @@ module.exports = (router) => {
 
   router.post("/social/facebook", Social.facebook);
   router.post("/social/google", Social.google);
-  router.post("/social/kakao", passport.authenticate("kakao-token", { session: false }), Social.kakao);
+  router.post(
+    "/social/kakao",
+    passport.authenticate("kakao-token", { session: false }),
+    Social.kakao
+  );
   router.post("/social/veritySave", Social.verifyThen);
 
   router.post("/addStory", Story.add);
@@ -29,14 +33,15 @@ module.exports = (router) => {
   router.post("/delStory", Story.delStory);
   router.get("/bb", Story.bb);
   router.get("/cc", Story.cc);
-
+  router.post("/ff", Group.ff);
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
 
-  router.post("/createGroup", Group.createGroup);
+  router.post("/addGroup", Group.addGroup);
   router.post("/readGroup/:index", Group.readGroup);
   router.post("/readGroup/maxPage", Group.readGroupMaxPage);
+  router.post("/readGroupInfo", Group.readGroupInfo);
   router.post("/joinGroup", Group.joinGroup);
   router.post("/searchGroup", Group.searchGroup);
 
