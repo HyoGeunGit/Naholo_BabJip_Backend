@@ -39,6 +39,7 @@ module.exports = (router) => {
   router.post("/getDetail", Place.detail);
 
   router.post("/addGroup", Group.addGroup);
+  router.post("/readGroup", Group.readGroupAll);
   router.post("/readGroup/:index", Group.readGroup);
   router.post("/readGroup/maxPage", Group.readGroupMaxPage);
   router.post("/readGroupInfo", Group.readGroupInfo);

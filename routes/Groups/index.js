@@ -50,6 +50,15 @@ export const Group = {
       maxPage: Math.floor(Groups.count() / 10),
     });
   },
+  readGroupAll: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "token expiration or User Not Found" });
+    let group = await Groups.find();
+    return res.status(200).json(group);
+  },
   readGroupInfo: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
