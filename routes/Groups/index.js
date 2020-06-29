@@ -81,7 +81,7 @@ export const Group = {
       if (group.user.length >= group.maximum)
         return res
           .status(413)
-          .json({ message: " The number of people is exceeded!" });
+          .json({ message: "The number of people is exceeded!" });
       let isDuplicate = false;
       let duplicateChk = await groups.user.map((item) => {
         if (item.uuid === req.body.user.uuid) isDuplicate = true;
