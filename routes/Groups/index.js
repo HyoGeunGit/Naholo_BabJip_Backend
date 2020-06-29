@@ -85,7 +85,6 @@ export const Group = {
       return res
         .status(404)
         .json({ message: "token expiration or User Not Found" });
-    console.log(user.groups);
     let groupQuery = [];
     await user.groups.map((item) => {
       groupQuery.push({
@@ -108,8 +107,8 @@ export const Group = {
           .status(413)
           .json({ message: "The number of people is exceeded!" });
       let isDuplicate = false;
-      let duplicateChk = await groups.user.map((item) => {
-        if (item.uuid === req.body.user.uuid) isDuplicate = true;
+      let duplicateChk = await group.users.map((item) => {
+        if (item.uuid === user.uuid) isDuplicate = true;
       });
       if (isDuplicate)
         return res.status(409).json({ message: "User Duplicate!" });
