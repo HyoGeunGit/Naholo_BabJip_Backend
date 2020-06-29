@@ -4,7 +4,7 @@ const GroupSchema = new mongoose.Schema({
   groupName: { type: String }, // 그룹 이름
   users: [
     {
-      uuid: { type: String, unique: true },
+      uuid: { type: String },
     },
   ], // 참여자 배열 (user._id 사용)
   groupUUID: { type: String },
