@@ -571,7 +571,7 @@
 
     lng : 위도 [Number]
 
-    maximun : 최대 인원 수 [Number]
+    maximum : 최대 인원 수 [Number]
 
     vicinity : 거리 이름 [String] : "ex 비빔로 밥 42길 12"
 

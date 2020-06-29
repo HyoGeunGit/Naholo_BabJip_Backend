@@ -78,6 +78,16 @@ export const Group = {
         .json({ message: "token expiration or User Not Found" });
     else {
       let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
+      if (group.user.length >= group.maximum)
+        return res
+          .status(413)
+          .json({ message: " The number of people is exceeded!" });
+      let isDuplicate = false;
+      let duplicateChk = await groups.user.map((item) => {
+        if (item.uuid === req.body.user.uuid) isDuplicate = true;
+      });
+      if (isDuplicate)
+        return res.status(409).json({ message: "User Duplicate!" });
       if (!group) return res.status(404).json({ message: "Group Not Found" });
       else {
         group.users.push({ _id: user._id, uuid: user.uuid });

@@ -9,8 +9,8 @@ const GroupSchema = new mongoose.Schema({
   ], // 참여자 배열 (user._id 사용)
   groupUUID: { type: String },
   maximum: { type: Number }, // 최대 참가자
-  lat: { type: String }, // 경도
-  lng: { type: String }, // 위도
+  lat: { type: Number }, // 경도
+  lng: { type: Number }, // 위도
   vicinity: { type: String }, //주소
   time: { type: String }, // 만날 시간 ex 9시 ~ 10시 ( PM )
   isAdult: { type: Boolean, default: false }, // 19세
