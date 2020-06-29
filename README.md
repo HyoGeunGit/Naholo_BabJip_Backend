@@ -602,6 +602,55 @@
 
     HTTP 404 : { message: "token expiration or User Not Found" }
 
+- POST /readGroup
+
+> Response
+
+    [
+        {
+            "isAdult": false,
+            "_id": "5ef8746f9abd52777c44f0e0",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "치킨먹을사람!!2",
+            "users": [
+                {
+                    "_id": "5ef8746f9abd52777c44f0e1",
+                    "uuid": "0udfwiMNKoUhlxLzfqA0lyKRQZpGG88S2cjBJz"
+                },
+                {
+                    "_id": "5ef87a2e8c96c236d09056b0",
+                    "uuid": "9kYrF4D8NtqanYiQinAugKgQBq8kqs5271DGLr"
+                }
+            ],
+            "groupUUID": "BCExrJsJUQhXMs4v8LJNpPlv0F40BvohqzU6kwLb",
+            "__v": 1
+        },
+        {
+            "isAdult": false,
+            "_id": "5ef874799abd52777c44f0e2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "치킨먹을사람!!3",
+            "users": [
+                {
+                    "_id": "5ef874799abd52777c44f0e3",
+                    "uuid": "0udfwiMNKoUhlxLzfqA0lyKRQZpGG88S2cjBJz"
+                }
+            ],
+            "groupUUID": "5CrgW3Zewe00PdawnowdrteAXeeZ93QhVIstFMeD",
+            "__v": 0
+        }
+    ]
+
 - POST /readGroup/:index : 그룹 10개씩 가져오기
 
 > Params
