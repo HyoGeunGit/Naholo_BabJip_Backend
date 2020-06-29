@@ -598,6 +598,7 @@
                 "uuid": "26rCVTq3h08o8eSwoaCbwJ98yasuF7bmOHW8fI"
             },
         ],
+        "groupUUID": "5CrgW3Zewe00PdawnowdrteAXeeZ93QhVIstFMeD",
     }
 
     HTTP 404 : { message: "token expiration or User Not Found" }
@@ -679,6 +680,7 @@
                     "uuid": "26rCVTq3h08o8eSwoaCbwJ98yasuF7bmOHW8fI"
                 }
             ],
+            "groupUUID": "5CrgW3Zewe00PdawnowdrteAXeeZ93QhVIstFMeD",
         }
     ]
 
@@ -709,6 +711,90 @@
                     "uuid": "26rCVTq3h08o8eSwoaCbwJ98yasuF7bmOHW8fI"
                 }
             ],
+            "groupUUID": "5CrgW3Zewe00PdawnowdrteAXeeZ93QhVIstFMeD",
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readGroupInfo : 특정 그룹 정보 불러오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupUUID : 그룹 UUID [String]
+
+> Response
+
+    HTTP 200 : {
+        "isAdult": false,
+        "_id": "5ef8746f9abd52777c44f0e0",
+        "maximum": 5,
+        "lat": 32,
+        "lng": 32,
+        "vicinity": "동교로",
+        "time": "9시 ~ 10시 ( PM )",
+        "category": "치킨",
+        "groupName": "치킨먹을사람!!2",
+        "users": [
+            {
+                "profileImgUrl": "false",
+                "nick": "1122213123333332"
+            }
+        ],
+        "groupUUID": "BCExrJsJUQhXMs4v8LJNpPlv0F40BvohqzU6kwLb",
+        "__v": 1
+    }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readUserGroup : 유저 가입한 그룹 가져오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "isAdult": false,
+            "_id": "5ef9d305357c9151048ba17e",
+            "maximum": 5,
+            "lat": 32,
+            "lng": 32,
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "users": [
+                {
+                    "_id": "5ef9d305357c9151048ba17f",
+                    "uuid": "9kYrF4D8NtqanYiQinAugKgQBq8kqs5271DGLr"
+                }
+            ],
+            "groupUUID": "JZMLYG4BPRDcffPEMTzWhrlB4PZ8ChVqv8fTpOUr",
+            "__v": 0
+        },
+        {
+            "isAdult": false,
+            "_id": "5ef9d307357c9151048ba181",
+            "maximum": 5,
+            "lat": 32,
+            "lng": 32,
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "users": [
+                {
+                    "_id": "5ef9d307357c9151048ba182",
+                    "uuid": "9kYrF4D8NtqanYiQinAugKgQBq8kqs5271DGLr"
+                }
+            ],
+            "groupUUID": "E7ExCV0MaqxFAh02286kpPYufK3eMJAp06hh70Lp",
+            "__v": 0
         }
     ]
 

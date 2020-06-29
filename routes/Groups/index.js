@@ -86,7 +86,13 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     console.log(user.groups);
-    let userGroups = await Groups.find(user.groups);
+    let groupQuery = [];
+    await user.groups.map((item) => {
+      groupQuery.push({
+        groupUUID: item.groupUUID,
+      });
+    });
+    let userGroups = await Groups.find({ $or: groupQuery });
     return res.status(200).json(userGroups);
   },
   joinGroup: async (req, res) => {
