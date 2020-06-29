@@ -91,6 +91,8 @@ export const Group = {
       if (!group) return res.status(404).json({ message: "Group Not Found" });
       else {
         group.users.push({ _id: user._id, uuid: user.uuid });
+        user.groups.push({ groupUUID: req.body.groupUUID, groupType: "group" });
+        let result = await user.save();
         return res.status(200).json(await group.save());
       }
     }
