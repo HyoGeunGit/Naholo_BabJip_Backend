@@ -748,7 +748,11 @@
         "groupUUID": "BCExrJsJUQhXMs4v8LJNpPlv0F40BvohqzU6kwLb",
     }
 
-HTTP 404 : { message: "token expiration or User Not Found" }
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+    HTTP 409 : { message: "User Duplicate!"}
+
+    HTTP 413 : { message : "The number of people is exceeded" }
 
 - POST /searchGroup : 그룹 검색. 검색한 문자열이 제목, 카테고리에 포함된 그룹들이 나옴
 
