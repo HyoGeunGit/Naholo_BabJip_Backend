@@ -1,10 +1,15 @@
 import { Users, Groups } from "../../mongo";
 import rndString from "randomstring";
+import produce from "immer";
 
 async function getUserNick(arr) {
+  let result = await Users.find({ uuid: { $in: arr } });
   let returnArr = [];
-  let result = await Users.find(arr);
-  return result;
+  await result.map((item) => {
+    let { profileImgUrl, nick } = item;
+    returnArr.push({ profileImgUrl, nick });
+  });
+  return returnArr;
 }
 export const Group = {
   ff: async (req, res) => {
@@ -21,7 +26,9 @@ export const Group = {
       let data = req.body;
       let group = new Groups(data);
       group.groupUUID = rndString.generate(40);
-      group.users.push({ uuid: user.uuid });
+      group.users.push(user.uuid);
+      user.groups.push({ groupUUID: group.groupUUID, groupType: "group" });
+      user = await user.save();
       group = await group.save();
       return res.status(200).json(group);
     }
@@ -34,7 +41,7 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
-      let groups = await Groups.find()
+      let groups = await Groups.find({ users: { $nin: user.uuid } })
         .limit(10)
         .skip(index * 10);
       return res.status(200).json(groups);
@@ -47,7 +54,7 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     return res.status(200).json({
-      maxPage: Math.floor(Groups.count() / 10),
+      maxPage: Math.floor(Groups.count({ users: { $nin: user.uuid } }) / 10),
     });
   },
   readGroupAll: async (req, res) => {
@@ -56,7 +63,7 @@ export const Group = {
       return res
         .status(404)
         .json({ message: "token expiration or User Not Found" });
-    let group = await Groups.find();
+    let group = await Groups.find({ users: { $nin: user.uuid } });
     return res.status(200).json(group);
   },
   readGroupInfo: async (req, res) => {
@@ -66,9 +73,26 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
-    let userNick = await getUserNick(group.user);
-    console.log(userNick);
-    return res.status(200).json(group);
+    let userNick = await getUserNick(group.users);
+    return res.status(200).json({
+      ...group._doc,
+      users: userNick,
+    });
+  },
+  readUserGroup: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "token expiration or User Not Found" });
+    let groupQuery = [];
+    await user.groups.map((item) => {
+      groupQuery.push({
+        groupUUID: item.groupUUID,
+      });
+    });
+    let userGroups = await Groups.find({ $or: groupQuery });
+    return res.status(200).json(userGroups);
   },
   joinGroup: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
@@ -77,20 +101,22 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
-      let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
-      if (group.user.length >= group.maximum)
+      let group = await Groups.findOne({ groupUUID: req.body.groupUUID })
+        .where("users")
+        .nin([user.uuid]);
+      if (!group) {
+        return res
+          .status(400)
+          .json({ message: "User Duplicate or Group Not Found!" });
+      }
+      if (group.users.length >= group.maximum)
         return res
           .status(413)
           .json({ message: "The number of people is exceeded!" });
-      let isDuplicate = false;
-      let duplicateChk = await groups.user.map((item) => {
-        if (item.uuid === req.body.user.uuid) isDuplicate = true;
-      });
-      if (isDuplicate)
-        return res.status(409).json({ message: "User Duplicate!" });
-      if (!group) return res.status(404).json({ message: "Group Not Found" });
       else {
-        group.users.push({ _id: user._id, uuid: user.uuid });
+        group.users.push(user.uuid);
+        user.groups.push({ groupUUID: req.body.groupUUID, groupType: "group" });
+        let result = await user.save();
         return res.status(200).json(await group.save());
       }
     }
@@ -106,7 +132,9 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
-      let groups = await Groups.find({ $or: searchQuery });
+      let groups = await Groups.find({ $or: searchQuery })
+        .where("users")
+        .nin([user.uuid]);
       return res.status(200).json(groups);
     }
   },

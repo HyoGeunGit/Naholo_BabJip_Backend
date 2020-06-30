@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const uri = "mongodb://127.0.0.1:27017/NaholeDBDev3C`";
+const uri = "mongodb://127.0.0.1:27017/NaHolloDev123";
 
 let db = mongoose.connect(uri, (err) => {
   if (err) console.log(err);

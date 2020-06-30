@@ -15,6 +15,12 @@ const UserSchema = new mongoose.Schema({
   eventChk: { type: Boolean, default: false }, // 이벤트 동의
   profileImgUrl: { type: String, default: false },
   social: { type: String }, // facebook, google, kakao
+  groups: [
+    {
+      groupUUID: { type: String },
+      groupType: { type: String }, // "onebyone, group"
+    },
+  ],
 });
 
 export const Users = mongoose.model("users", UserSchema);
