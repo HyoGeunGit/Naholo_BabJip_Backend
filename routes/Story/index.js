@@ -1,18 +1,20 @@
 import { Users, Stories, BackupStories } from "../../mongo";
 import rndString from "randomstring";
-
+import { default as saveStoryImage } from "../../func/resourceManager/saveStoryImage";
 // const url = "http://127.0.0.1:8001/";
 const url = "http://13.59.89.201:8001/";
 export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let storyUUID = rndString.generate(40);
+    let storyImage = await saveStoryImage(user.uuid, storyUUID, [req.body.img]);
     let json = {
       userUUID: user.uuid,
-      userName: user.name,
+      userName: user.nick,
       userProfileImgUrl: user.profileImgUrl,
-      imgUrl: url + req.file.filename,
-      storyUUID: req.file.filename,
+      imgUrl: url + storyImage[0],
+      storyUUID: storyUUID,
     };
     let newStory = new Stories(json);
     let newBackup = new BackupStories(json);
@@ -23,6 +25,26 @@ export const Story = {
     } catch (e) {
       return res.status(500).json({ message: "ERR!" });
     }
+  },
+  watchStory: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let story = await Stories.findOne({ storyUUID: req.body.storyUUID })
+      .where("alreadyWatch")
+      .nin([user.uuid]);
+    if (!story) return res.status(409).json({ message: "User Duplicate!" });
+    story.alreadyWatch.push(user.uuid);
+    return res.status(200).json(await story.save());
+  },
+  readWatchStory: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let story = await Stories.findOne({ storyUUID: req.body.storyUUID });
+    let users = await Users.find(
+      { uuid: { $in: story.alreadyWatch } },
+      { nick: 1, profileImgUrl: 1 }
+    );
+    return res.status(200).json(users);
   },
   findUserStory: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });

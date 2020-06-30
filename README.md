@@ -146,7 +146,7 @@
 
     token : 유저 토큰 [String]
 
-    img : 스토리 이미지 [Image file]
+    img : 스토리 이미지 [Base64 String]
 
 > Response
 
@@ -154,7 +154,7 @@
 
     HTTP 500 : { message : "ERR!"}
 
-- POST /findUSerStory : 유저 스토리 찾기
+- POST /findUserStory : 유저 스토리 찾기
 
 > Request
 
@@ -172,7 +172,10 @@
             "userProfileImgUrl": "false",
             "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
             "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-            "alreadyWatch": [],
+            "alreadyWatch": [
+                'asdasdasdasdsa',
+                'asdasdassdasdsad'
+            ],
             "__v": 0
         },
         {
@@ -282,6 +285,58 @@
     HTTP 200 : { message : "success!" }
 
     HTTP 500 : { message : "ERR!" }
+
+- POST /watchStory : 스토리 보기 ( 다른 유저가 내 스토리 보기 )
+
+> Request
+
+    token : 유저 토큰 [String],
+
+    storyUUID : 스토리 UUID [String]
+
+> Response
+
+    HTTP 200 {
+        "alreadyWatch": [
+            "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+        ],
+        "createdAt": "2020-06-30T06:22:15.934Z",
+        "_id": "5efada1bb65b1b9abc12bbba",
+        "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+        "userName": "1122213123333332",
+        "userProfileImgUrl": "false",
+        "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5/0.jpg",
+        "storyUUID": "XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5",
+        "__v": 3
+    }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readWatch : 특정 스토리를 본 사람
+
+> Request
+
+    token : 유저 토큰 [String],
+
+    storyUUID : 스토리 UUID [String]
+
+> Reponse
+
+    HTTP 200 : [
+        {
+            "profileImgUrl": "false",
+            "_id": "5ef9ec0e2698817954b3bb39",
+            "nick": "1122213123333332"
+        },
+        {
+            "profileImgUrl": "false",
+            "_id": "5ef9ec9521c64d2e08881595",
+            "nick": "12"
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
 
 - POST /getCategory : 카테고리로 주변 음식점 검색
 
