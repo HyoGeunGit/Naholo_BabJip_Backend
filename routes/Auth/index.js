@@ -22,32 +22,23 @@ export const auth = {
       } catch (e) {
         return res.status(500).json({ message: "ERR!" });
       }
-      if (!user.termsChk)
-        return res
-          .status(203)
-          .json({ message: "Non-Authoritative Information" });
+      if (!user.termsChk) return res.status(203).json({ message: "Non-Authoritative Information" });
       return res.status(200).json(user);
     } else return res.status(404).json({ message: "User Not Found!" });
   },
   signup: async (req, res) => {
     const pw = (pw) => {
       return new Promise((resolve, reject) => {
-        bCrypt.hash(
-          req.body.passwd,
-          "$2a$10$llw0G6IyibUob8h5XRt9xuRczaGdCm/AiV6SSjf5v78XS824EGbh.",
-          null,
-          (err, hash) => {
-            if (err) reject(err);
-            else resolve(hash);
-          }
-        );
+        bCrypt.hash(req.body.passwd, "$2a$10$llw0G6IyibUob8h5XRt9xuRczaGdCm/AiV6SSjf5v78XS824EGbh.", null, (err, hash) => {
+          if (err) reject(err);
+          else resolve(hash);
+        });
       });
     };
     let json = {
       ...req.body,
       passwd: await pw(req.body.passwd),
       token: rndString.generate(25),
-      uuid: rndString.generate(38),
     };
     try {
       let newUser = new Users(json);
@@ -56,11 +47,7 @@ export const auth = {
       return res.status(200).json(newUser);
     } catch (e) {
       console.log(e);
-      return e.code === 11000
-        ? res
-            .status(409)
-            .json({ message: "User duplicate!", duplicateKey: e.keyValue })
-        : res.status(500).json({ message: "ERR!" });
+      return e.code === 11000 ? res.status(409).json({ message: "User duplicate!", duplicateKey: e.keyValue }) : res.status(500).json({ message: "ERR!" });
     }
   },
   duplicateChk: async (req, res) => {
@@ -70,15 +57,9 @@ export const auth = {
   },
   autoLogin: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
-    if (!user)
-      return res
-        .status(404)
-        .json({ message: "token expiration or User Not Found" });
+    if (!user) return res.status(404).json({ message: "token expiration or User Not Found" });
     else {
-      if (!user.termsChk)
-        return res
-          .status(203)
-          .json({ message: "Non-Authoritative Information" });
+      if (!user.termsChk) return res.status(203).json({ message: "Non-Authoritative Information" });
       user.passwd = undefined;
       return res.status(200).json(user);
     }
@@ -88,8 +69,7 @@ export const auth = {
       if (str === "true" || str === "TRUE") return true;
       else return false;
     }
-    if (!strToBool(req.body.terms))
-      return res.status(203).json({ message: "Non-Authoritative Information" });
+    if (!strToBool(req.body.terms)) return res.status(203).json({ message: "Non-Authoritative Information" });
     try {
       let result = await Users.update(
         { token: req.body.token },

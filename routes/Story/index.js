@@ -7,19 +7,20 @@ export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let stroyUUID = rndString.generate(40);
-    let fileUrl = await saveStoryImage(user._id, storyUUID, req.body.storyImg);
     let json = {
       userUUID: user._id,
       userName: user.nick,
       userProfileImgUrl: user.profileImgUrl,
       imgUrl: url + fileUrl[0],
-      storyUUID: stroyUUID,
     };
     let newStory = new Stories(json);
     let newBackup = new BackupStories(json);
     try {
       let result = await newStory.save();
+      let fileUrl = await saveStoryImage(user._id, result._id, req.body.storyImg);
+      result.imgUrl = url + fileUrl[0];
+      await result.save();
+
       let backupResult = await newBackup.save();
       return res.status(200).json({ message: "success!" });
     } catch (e) {

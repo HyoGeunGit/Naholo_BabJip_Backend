@@ -16,7 +16,6 @@ const FindORSearch = (req, res) => {
         sex: req.body.sex,
         nick: req.body.nick,
         birth: req.body.birth,
-        uuid: req.body.uuid, // FIXME: uuid 사용안함
         phone: req.body.phone,
 
         password: rndString.generate(30),
@@ -41,9 +40,9 @@ async function returnSuccess(req, res, info, social) {
   } else if (!info.email) return res.status(401).json({ message: "Exception Email" });
   else {
     return res.status(200).json({
+      _id: info._id,
       name: info.name,
       email: info.email,
-      uuid: info.uid,
       profileImgUrl: info.picture, // 얘는 firebase bucket 적용
       social: social,
     });
@@ -84,7 +83,7 @@ const Social = {
       {
         name: user.properties.nickname,
         email: user.kakao_account.email,
-        uid: user.id,
+        _id: user.id,
         profileImgUrl: user.properties.profile_image,
       },
       "kakao"
