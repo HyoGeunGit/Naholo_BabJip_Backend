@@ -1,0 +1,10 @@
+{
+	"apps": [
+		{
+			"name": "Naholo_BabJip_Backend",
+			"script": "./dist/src/app.js",
+			"autorestart": true,
+			"watch": false
+		}
+	]
+}

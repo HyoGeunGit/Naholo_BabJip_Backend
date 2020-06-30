@@ -1,7 +1,5 @@
 {
-  "prettier.tabWidth": 2,
-  "prettier.useTabs": false,
-  "deno.enable": false,
-  "typescript.validate.enable": false,
-  "javascript.validate.enable": false
+	"prettier.tabWidth": 4,
+	"prettier.useTabs": true,
+	"deno.enable": false
 }
