@@ -1,17 +1,19 @@
 import { Users, Stories, BackupStories } from "../../mongo";
 import rndString from "randomstring";
-
+import { saveStoryImage } from "../../func";
 // const url = "http://127.0.0.1:8001/";
 const url = "http://13.59.89.201:8001/";
 export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let stroyUUID = rndString.generate(40);
+    let fileUrl = await saveStoryImage(user.uuid, storyUUID, req.body.storyImg);
     let json = {
       userUUID: user.uuid,
-      userName: user.name,
+      userName: user.nick,
       userProfileImgUrl: user.profileImgUrl,
-      imgUrl: url + req.file.filename,
+      imgUrl: url + fileUrl[0],
       storyUUID: req.file.filename,
     };
     let newStory = new Stories(json);

@@ -1,9 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
-const GroupSchema = new mongoose.Schema({
+const GroupSchema = new Schema({
   groupName: { type: String }, // 그룹 이름
-  users: [{ type: String }], // 참여자 배열 (user._id 사용)
-  groupUUID: { type: String },
+  users: [{ type: Schema.Types.ObjectId, ref: "users" }], // 참여자 배열 (user._id 사용)
   maximum: { type: Number }, // 최대 참가자
   lat: { type: String }, // 경도
   lng: { type: String }, // 위도
@@ -11,7 +10,6 @@ const GroupSchema = new mongoose.Schema({
   time: { type: String }, // 만날 시간 ex 9시 ~ 10시 ( PM )
   isAdult: { type: Boolean, default: false }, // 19세
   category: { type: String }, // 카테고리
+  isGroup: { type: Boolean, default: true }, // true = 그룹, false = 1대1
 });
-
-const OneByOneSchema = new mongoose.Schema({}); // 1 to 1 matching
 export const Groups = mongoose.model("groups", GroupSchema);
