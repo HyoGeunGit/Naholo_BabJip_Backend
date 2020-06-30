@@ -791,9 +791,9 @@
         "__v": 2
     }
 
-    HTTP 404 : { message: "token expiration or User Not Found" }
+    HTTP 400 : { message: "User Duplicate or Group Not Found!" }
 
-    HTTP 409 : { message: "User Duplicate!"}
+    HTTP 404 : { message: "token expiration or User Not Found" }
 
     HTTP 413 : { message : "The number of people is exceeded" }
 
