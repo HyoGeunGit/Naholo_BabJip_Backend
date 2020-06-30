@@ -5,7 +5,7 @@ import passport from "passport";
 
 const FindORSearch = (req, res) => {
   return new Promise(async (resolve, reject) => {
-    let user = await Users.findOne({ uuid: req.body.uuid });
+    let user = await Users.findOne({ _id: req.body.uuid });
     if (user) {
       return res.status(409).json({ message: "User duplicate!" });
     } else {
@@ -16,7 +16,7 @@ const FindORSearch = (req, res) => {
         sex: req.body.sex,
         nick: req.body.nick,
         birth: req.body.birth,
-        uuid: req.body.uuid,
+        uuid: req.body.uuid, // FIXME: uuid 사용안함
         phone: req.body.phone,
 
         password: rndString.generate(30),
@@ -29,21 +29,16 @@ const FindORSearch = (req, res) => {
         let result = await new_user.save();
         return res.status(200).json(new_user);
       } catch (e) {
-        return e.code === 11000
-          ? res
-              .status(409)
-              .json({ message: "User duplicate!", duplicateKey: e.keyValue })
-          : res.status(500).json({ message: "ERR!" });
+        return e.code === 11000 ? res.status(409).json({ message: "User duplicate!", duplicateKey: e.keyValue }) : res.status(500).json({ message: "ERR!" });
       }
     }
   });
 };
 async function returnSuccess(req, res, info, social) {
-  let user = await Users.findOne({ uuid: info.uid });
+  let user = await Users.findOne({ _id: info.uid });
   if (user) {
     return res.status(201).json(user);
-  } else if (!info.email)
-    return res.status(401).json({ message: "Exception Email" });
+  } else if (!info.email) return res.status(401).json({ message: "Exception Email" });
   else {
     return res.status(200).json({
       name: info.name,
