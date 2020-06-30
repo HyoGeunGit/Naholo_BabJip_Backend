@@ -8,13 +8,13 @@ export const Story = {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
     let stroyUUID = rndString.generate(40);
-    let fileUrl = await saveStoryImage(user.uuid, storyUUID, req.body.storyImg);
+    let fileUrl = await saveStoryImage(user._id, storyUUID, req.body.storyImg);
     let json = {
-      userUUID: user.uuid,
+      userUUID: user._id,
       userName: user.nick,
       userProfileImgUrl: user.profileImgUrl,
       imgUrl: url + fileUrl[0],
-      storyUUID: req.file.filename,
+      storyUUID: stroyUUID,
     };
     let newStory = new Stories(json);
     let newBackup = new BackupStories(json);
@@ -29,17 +29,15 @@ export const Story = {
   findUserStory: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let stories = await Stories.find({ userUUID: user.uuid });
-    if (stories.length === 0)
-      return res.status(404).json({ message: "Story Not Found!" });
+    let stories = await Stories.find({ userUUID: user._id });
+    if (stories.length === 0) return res.status(404).json({ message: "Story Not Found!" });
     else return res.status(200).json(stories);
   },
   findUserBackupStory: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let stories = await BackupStories.find({ userUUID: user.uuid });
-    if (stories.length === 0)
-      return res.status(404).json({ message: "Story Not Found!" });
+    let stories = await BackupStories.find({ userUUID: user._id });
+    if (stories.length === 0) return res.status(404).json({ message: "Story Not Found!" });
     else return res.status(200).json(stories);
   },
   getStoryList: async (req, res) => {
@@ -78,19 +76,17 @@ export const Story = {
         if (resList.length >= 10) {
           resList.length = 10;
         }
-        return resList.length !== 0
-          ? res.status(200).json(resList)
-          : res.status(404).json({ message: "Story Not Found!" });
+        return resList.length !== 0 ? res.status(200).json(resList) : res.status(404).json({ message: "Story Not Found!" });
       });
     });
   },
   delStory: async (req, res) => {
     try {
       let result = await Stories.deleteOne({
-        storyUUID: req.body.storyUUID,
+        _id: req.body.storyUUID,
       });
       result = await BackupStories.deleteOne({
-        storyUUID: req.body.storyUUID,
+        _id: req.body.storyUUID,
       });
       return res.status(200).json({ message: "success!" });
     } catch (e) {
