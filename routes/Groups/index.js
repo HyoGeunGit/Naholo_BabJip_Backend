@@ -3,7 +3,7 @@ import rndString from "randomstring";
 import produce from "immer";
 
 async function getUserNick(arr) {
-  let result = await Users.find({ $or: arr });
+  let result = await Users.find({ uuid: { $in: arr } });
   let returnArr = [];
   await result.map((item) => {
     let { profileImgUrl, nick } = item;
@@ -17,7 +17,6 @@ export const Group = {
     return res.json(result);
   },
   addGroup: async (req, res) => {
-    // docs 수정 됨
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
       return res
@@ -35,7 +34,6 @@ export const Group = {
     }
   },
   readGroup: async (req, res) => {
-    // docs 수정 됨
     let user = await Users.findOne({ token: req.body.token });
     let index = req.param.index; // start index : 0
     if (!user)
@@ -50,7 +48,6 @@ export const Group = {
     }
   },
   readGroupMaxPage: async (req, res) => {
-    // docs 수정 됨
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
       return res
@@ -61,7 +58,6 @@ export const Group = {
     });
   },
   readGroupAll: async (req, res) => {
-    // docs 수정 됨
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
       return res
@@ -99,7 +95,6 @@ export const Group = {
     return res.status(200).json(userGroups);
   },
   joinGroup: async (req, res) => {
-    // docs 수정 됨
     let user = await Users.findOne({ token: req.body.token });
     if (!user)
       return res
