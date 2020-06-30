@@ -31,8 +31,11 @@ module.exports = (router) => {
   router.post("/findUserBackupStory", Story.findUserBackupStory);
   router.post("/getStoryList", Story.getStoryList);
   router.post("/delStory", Story.delStory);
-  router.get("/bb", Story.bb);
-  router.get("/cc", Story.cc);
+  router.post("/watchStory", Story.watchStory);
+  router.post("/readWatch", Story.readWatchStory);
+
+  router.post("/bb", Story.bb);
+  router.post("/cc", Story.cc);
   router.post("/ff", Group.ff);
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
