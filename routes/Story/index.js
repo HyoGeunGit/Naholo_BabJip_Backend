@@ -7,6 +7,12 @@ export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let beforeStory = await Stories.findOne({ userUUID: user.uuid });
+    if (beforeStory) {
+      let result = await Stories.deleteMany({
+        userUUID: user.uuid,
+      });
+    }
     let storyUUID = rndString.generate(40);
     let storyImage = await saveStoryImage(user.uuid, storyUUID, [req.body.img]);
     let json = {
@@ -63,46 +69,12 @@ export const Story = {
     else return res.status(200).json(stories);
   },
   getStoryList: async (req, res) => {
-    const groupBy = (arr, property) => {
-      return new Promise(async (resolve) => {
-        let result = await arr.reduce((acc, obj) => {
-          var key = obj[property];
-          if (!acc[key]) {
-            acc[key] = [];
-          }
-          acc[key].push(obj);
-          return acc;
-        }, {});
-        resolve(result);
-      });
-    };
-    const shuffle = (a) => {
-      return new Promise((resolve) => {
-        var j, x, i;
-        for (i = a.length; i; i -= 1) {
-          j = Math.floor(Math.random() * i);
-          x = a[i - 1];
-          a[i - 1] = a[j];
-          a[j] = x;
-        }
-        resolve(a);
-      });
-    };
-    let stories = await Stories.find();
-    groupBy(stories, "userUUID").then((returnArr) => {
-      let response = [];
-      for (let [key, value] of Object.entries(returnArr)) {
-        response.push(value);
-      }
-      shuffle(response).then((resList) => {
-        if (resList.length >= 10) {
-          resList.length = 10;
-        }
-        return resList.length !== 0
-          ? res.status(200).json(resList)
-          : res.status(404).json({ message: "Story Not Found!" });
-      });
-    });
+    let stories = await Stories.aggregate([{ $sample: { size: 10 } }]);
+    if (stories.length === 0)
+      return res.status(404).json({ message: "Story Not Found!" });
+    else {
+      return res.status(200).json(stories);
+    }
   },
   delStory: async (req, res) => {
     try {
