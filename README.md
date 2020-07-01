@@ -229,47 +229,48 @@
 
     HTTP 404 : { message: "User Not Found!" }
 
-- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10명 )
+- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10개 )
 
 > Response
 
-    HTTP 200 :
-    [
-        [
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9629a71b7734268faff",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-                "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            },
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9669a71b7734268fb01",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
-                "storyUUID": "BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            },
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9669a71b7734268fb03",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
-                "storyUUID": "YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            }
-        ]
+    HTTP 200 : [
+        {
+            "_id": "5efada87a2cdfa58ac32e03e",
+            "createdAt": "2020-06-30T06:22:50.908Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/QFbz62ul21GhQU8vt64TPxnYb6Qd8t5doRlqr1nv/0.jpg",
+            "storyUUID": "QFbz62ul21GhQU8vt64TPxnYb6Qd8t5doRlqr1nv",
+            "alreadyWatch": [],
+            "__v": 0
+        },
+        {
+            "_id": "5efada1bb65b1b9abc12bbba",
+            "createdAt": "2020-06-30T06:22:15.934Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5/0.jpg",
+            "storyUUID": "XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5",
+            "alreadyWatch": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+            ],
+            "__v": 3
+        },
+        {
+            "_id": "5efada26b65b1b9abc12bbbc",
+            "createdAt": "2020-06-30T06:22:15.934Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/FfjaK4O5ibaEzczjrUjzrO6RwTp9ag9RPich7iZg/0.jpg",
+            "storyUUID": "FfjaK4O5ibaEzczjrUjzrO6RwTp9ag9RPich7iZg",
+            "alreadyWatch": [],
+            "__v": 0
+        }
     ]
 
     HTTP 404 : { message : "Story Not Found!" } / 스토리가 하나도 없을 때
