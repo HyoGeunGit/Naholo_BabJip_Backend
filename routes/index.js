@@ -6,6 +6,7 @@ import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
 import { Social } from "./Auth/Social";
+import { Chat } from "./Chat";
 import passport from "passport";
 // require("./Auth/Social");
 module.exports = (router) => {
@@ -50,14 +51,6 @@ module.exports = (router) => {
   router.post("/joinGroup", Group.joinGroup);
   router.post("/searchGroup", Group.searchGroup);
 
-  router.get("/asdf", async (req, res) => {
-    const config = {
-      action: "list",
-      expires: "03-17-2025",
-    };
-    bucket.getSignedUrl(config).then((data) => {
-      return res.send(data[0]);
-    });
-  });
+  router.post("/readChatList", Chat.chatList);
   return router;
 };
