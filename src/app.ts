@@ -4,9 +4,13 @@ import helmet from "helmet";
 import compression from "compression";
 
 import Router from "./router";
+import User from "./schema/User";
+import MongoDBConnect from "./modules/MongoDB-Connect";
 
 const app: express.Application = express();
 const port = process.env.PORT || 3000;
+
+MongoDBConnect.init();
 
 app.use(cors()); // CORS 설정 미들웨어 ( 추후 설정 )
 app.use(helmet()); // 보안 미들웨어
