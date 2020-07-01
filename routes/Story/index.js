@@ -7,6 +7,12 @@ export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
+    let beforeStory = await Stories.findOne({ userUUID: user.uuid });
+    if (beforeStory) {
+      let result = await Stories.deleteMany({
+        userUUID: user.uuid,
+      });
+    }
     let storyUUID = rndString.generate(40);
     let storyImage = await saveStoryImage(user.uuid, storyUUID, [req.body.img]);
     let json = {
