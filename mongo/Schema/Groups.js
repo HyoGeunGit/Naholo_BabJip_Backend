@@ -11,7 +11,6 @@ const GroupSchema = new mongoose.Schema({
   time: { type: String }, // 만날 시간 ex 9시 ~ 10시 ( PM )
   isAdult: { type: Boolean, default: false }, // 19세
   category: { type: String }, // 카테고리
+  groupType: { type: String, default: "group" }, // "group" = 그룹, "onebyone" = 1대1
 });
-
-const OneByOneSchema = new mongoose.Schema({}); // 1 to 1 matching
 export const Groups = mongoose.model("groups", GroupSchema);

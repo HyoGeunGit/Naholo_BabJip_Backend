@@ -1,7 +1,7 @@
 import { Users, Groups } from "../../mongo";
 import rndString from "randomstring";
-import produce from "immer";
-
+import { admin } from "../../firebase";
+const db = admin.database();
 async function getUserNick(arr) {
   let result = await Users.find({ uuid: { $in: arr } });
   let returnArr = [];
@@ -30,6 +30,15 @@ export const Group = {
       user.groups.push({ groupUUID: group.groupUUID, groupType: "group" });
       user = await user.save();
       group = await group.save();
+      db.ref(group.groupUUID + "/welcome").set({
+        message: "그룹이 생성되었습니다.",
+        timeStamp: "1593480463168",
+        userModel: {
+          name: "ADMIN",
+          photo_profile:
+            "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg",
+        },
+      });
       return res.status(200).json(group);
     }
   },
