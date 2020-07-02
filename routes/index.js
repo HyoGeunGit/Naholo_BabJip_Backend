@@ -53,5 +53,6 @@ module.exports = (router) => {
   router.post("/searchGroup", Group.searchGroup);
 
   router.post("/readChatList", Chat.chatList);
+  router.post("/searchChatList", Chat.searchChatList);
   return router;
 };
