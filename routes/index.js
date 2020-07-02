@@ -1,10 +1,12 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
 import { Place } from "./Place";
+import { Group } from "./Groups";
 import rndstring from "randomstring";
 import multer from "multer";
 import { bucket } from "../func/firebase/storage";
 import { Social } from "./Auth/Social";
+import { Chat } from "./Chat";
 import passport from "passport";
 // require("./Auth/Social");
 module.exports = (router) => {
@@ -30,27 +32,27 @@ module.exports = (router) => {
   router.post("/findUserBackupStory", Story.findUserBackupStory);
   router.post("/getStoryList", Story.getStoryList);
   router.post("/delStory", Story.delStory);
-  router.get("/bb", Story.bb);
-  router.get("/cc", Story.cc);
+  router.post("/watchStory", Story.watchStory);
+  router.post("/readWatch", Story.readWatchStory);
 
+  router.post("/bb", Story.bb);
+  router.post("/cc", Story.cc);
+  router.post("/ff", Group.ff);
   router.post("/getPlace", Place.find);
   router.post("/getCategory", Place.category);
   router.post("/getDetail", Place.detail);
 
-  // router.post("/createGroup", group.createGroup);
-  // router.post("/readGroup/:index", group.readGroup);
-  // router.post("/readGroup/maxPage", group.readGroupMaxPage);
-  // router.post("/joinGroup", group.joinGroup);
-  // router.post("/searchGroup", group.searchGroup);
+  router.post("/addGroup", Group.addGroup);
+  router.post("/readGroup", Group.readGroupAll);
+  router.post("/readGroup/:index", Group.readGroup);
+  router.post("/readGroup/maxPage", Group.readGroupMaxPage);
+  router.post("/readGroupInfo", Group.readGroupInfo);
+  router.post("/readUserGroup", Group.readUserGroup);
+  router.post("/readGroupMember", Group.readGroupMember);
+  router.post("/joinGroup", Group.joinGroup);
+  router.post("/searchGroup", Group.searchGroup);
 
-  router.get("/asdf", async (req, res) => {
-    const config = {
-      action: "list",
-      expires: "03-17-2025",
-    };
-    bucket.getSignedUrl(config).then((data) => {
-      return res.send(data[0]);
-    });
-  });
+  router.post("/readChatList", Chat.chatList);
+  router.post("/searchChatList", Chat.searchChatList);
   return router;
 };

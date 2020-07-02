@@ -146,7 +146,7 @@
 
     token : 유저 토큰 [String]
 
-    img : 스토리 이미지 [Image file]
+    img : 스토리 이미지 [Base64 String]
 
 > Response
 
@@ -154,7 +154,7 @@
 
     HTTP 500 : { message : "ERR!"}
 
-- POST /findUSerStory : 유저 스토리 찾기
+- POST /findUserStory : 유저 스토리 찾기
 
 > Request
 
@@ -172,7 +172,10 @@
             "userProfileImgUrl": "false",
             "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
             "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-            "alreadyWatch": [],
+            "alreadyWatch": [
+                'asdasdasdasdsa',
+                'asdasdassdasdsad'
+            ],
             "__v": 0
         },
         {
@@ -226,47 +229,48 @@
 
     HTTP 404 : { message: "User Not Found!" }
 
-- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10명 )
+- POST /getStoryList : 전체 유저 스토리 불러오기 ( 무작위 10개 )
 
 > Response
 
-    HTTP 200 :
-    [
-        [
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9629a71b7734268faff",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-                "storyUUID": "AvAPvOvm8uDm3mbJwFpcCFlhBA2PDlMgQ.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            },
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9669a71b7734268fb01",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
-                "storyUUID": "BhJJiFQG8oDHRegVZMCU37AESMn4SznKm.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            },
-            {
-                "createdAt": "2020-06-21T06:08:15.832Z",
-                "_id": "5eeef9669a71b7734268fb03",
-                "userUUID": "rdbKpfCWQd5RqMPwm6RgvsXuKhTDIrhS5KNaFz",
-                "userName": "51",
-                "userProfileImgUrl": "false",
-                "imgUrl": "http://13.59.89.201:8001/YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
-                "storyUUID": "YakS4llDSsCwCf5u77fosI79BxlUVKoEm.PNG",
-                "alreadyWatch": [],
-                "__v": 0
-            }
-        ]
+    HTTP 200 : [
+        {
+            "_id": "5efada87a2cdfa58ac32e03e",
+            "createdAt": "2020-06-30T06:22:50.908Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/QFbz62ul21GhQU8vt64TPxnYb6Qd8t5doRlqr1nv/0.jpg",
+            "storyUUID": "QFbz62ul21GhQU8vt64TPxnYb6Qd8t5doRlqr1nv",
+            "alreadyWatch": [],
+            "__v": 0
+        },
+        {
+            "_id": "5efada1bb65b1b9abc12bbba",
+            "createdAt": "2020-06-30T06:22:15.934Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5/0.jpg",
+            "storyUUID": "XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5",
+            "alreadyWatch": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+            ],
+            "__v": 3
+        },
+        {
+            "_id": "5efada26b65b1b9abc12bbbc",
+            "createdAt": "2020-06-30T06:22:15.934Z",
+            "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "userName": "1122213123333332",
+            "userProfileImgUrl": "false",
+            "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/FfjaK4O5ibaEzczjrUjzrO6RwTp9ag9RPich7iZg/0.jpg",
+            "storyUUID": "FfjaK4O5ibaEzczjrUjzrO6RwTp9ag9RPich7iZg",
+            "alreadyWatch": [],
+            "__v": 0
+        }
     ]
 
     HTTP 404 : { message : "Story Not Found!" } / 스토리가 하나도 없을 때
@@ -282,6 +286,58 @@
     HTTP 200 : { message : "success!" }
 
     HTTP 500 : { message : "ERR!" }
+
+- POST /watchStory : 스토리 보기 ( 다른 유저가 내 스토리 보기 )
+
+> Request
+
+    token : 유저 토큰 [String],
+
+    storyUUID : 스토리 UUID [String]
+
+> Response
+
+    HTTP 200 {
+        "alreadyWatch": [
+            "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+        ],
+        "createdAt": "2020-06-30T06:22:15.934Z",
+        "_id": "5efada1bb65b1b9abc12bbba",
+        "userUUID": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+        "userName": "1122213123333332",
+        "userProfileImgUrl": "false",
+        "imgUrl": "http://13.59.89.201:8001/story/wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD/XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5/0.jpg",
+        "storyUUID": "XnJds1IeYe1JlnA8CPfyPEjhgKigS0jSZh5jYfj5",
+        "__v": 3
+    }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readWatch : 특정 스토리를 본 사람
+
+> Request
+
+    token : 유저 토큰 [String],
+
+    storyUUID : 스토리 UUID [String]
+
+> Reponse
+
+    HTTP 200 : [
+        {
+            "profileImgUrl": "false",
+            "_id": "5ef9ec0e2698817954b3bb39",
+            "nick": "1122213123333332"
+        },
+        {
+            "profileImgUrl": "false",
+            "_id": "5ef9ec9521c64d2e08881595",
+            "nick": "12"
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
 
 - POST /getCategory : 카테고리로 주변 음식점 검색
 
@@ -559,7 +615,7 @@
 
     HTTP 500 : { message : "ERR!" }
 
-- POST /createGroup : 그룹 생성
+- POST /addGroup : 그룹 생성
 
 > Request
 
@@ -571,38 +627,68 @@
 
     lng : 위도 [Number]
 
-    startTime : 시작 시간 [Date]
+    maximum : 최대 인원 수 [Number]
 
-    endTime : 종료 시간 [Date]
+    vicinity : 거리 이름 [String] : "ex 비빔로 밥 42길 12"
 
-    iconnum : 아이콘 종류 [Number]
+    time : 시간 범위 [String] : "9시 ~ 10시 ( PM )"
 
-    food : 음식 이름 [String]
+    isAdult : 술이 들어가는가? [Boolean]
+
+    category: 음식 카테고리 [String] : "ex 치킨"
 
 > Response
 
-    HTTP 201 : ex)
+    HTTP 200 : ex)
     {
         "users": [
-            "user._id"...
+            "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
         ],
-        "_id": "5ef46a3e5f86ed59dca10ac1",
-        "groupName": "groupName",
-        "lat": "0",
-        "lng": "0",
-        "startTime": "1970-01-01T00:00:00.000Z",
-        "endTime": "1970-01-01T00:00:00.000Z",
-        "iconnum": 0,
-        "food": "food",
+        "isAdult": false,
+        "_id": "5ef9f10e98b8a55568c4c9f2",
+        "maximum": 5,
+        "lat": "32",
+        "lng": "32",
+        "vicinity": "동교로",
+        "time": "9시 ~ 10시 ( PM )",
+        "category": "치킨",
+        "groupName": "뿌링클링클링크리",
+        "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
         "__v": 0
     }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readGroup
+
+> Response
+
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0
+        }
+    ]
+
     HTTP 404 : { message: "token expiration or User Not Found" }
 
 - POST /readGroup/:index : 그룹 10개씩 가져오기
 
 > Params
 
-    index : 페이지 수 [Number]
+    index : 페이지 번호 [Number] 0부터
 
 > Request
 
@@ -610,31 +696,156 @@
 
 > Response
 
-    HTTP 200 : ex)
-    [{
-        "users": [
-            "user._id"...
-        ],
-        "_id": "5ef46a3e5f86ed59dca10ac1",
-        "groupName": "groupName",
-        "lat": "0",
-        "lng": "0",
-        "startTime": "1970-01-01T00:00:00.000Z",
-        "endTime": "1970-01-01T00:00:00.000Z",
-        "iconnum": 0,
-        "food": "food",
-        "__v": 0
-    }]
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0
+        }
+    ]
+
     HTTP 404 : { message: "token expiration or User Not Found" }
 
 - POST /readGroup/maxPage : 그룹 10개씩 가져오기
 
+> Request
+
+    token : 유저 토큰
+
 > Response
 
-    HTTP 200 : ex)
-    {
-        maxPage: index [Number]
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readGroupInfo : 특정 그룹 정보 불러오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupUUID : 그룹 UUID [String]
+
+> Response
+
+    HTTP 200 : {
+        "users": [
+            {
+                "profileImgUrl": "false",
+                "nick": "1122213123333332"
+            },
+            {
+                "profileImgUrl": "false",
+                "nick": "12"
+            },
+            {
+                "profileImgUrl": "false",
+                "nick": "123"
+            }
+        ],
+        "isAdult": false,
+        "_id": "5ef9ec50bbc43678bcff3277",
+        "maximum": 5,
+        "lat": "32",
+        "lng": "32",
+        "vicinity": "동교로",
+        "time": "9시 ~ 10시 ( PM )",
+        "category": "치킨",
+        "groupName": "뿌링클링클링크리",
+        "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+        "__v": 2
     }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readUserGroup : 유저 가입한 그룹 가져오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k",
+                "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+            ],
+            "isAdult": false,
+            "_id": "5ef9ec50bbc43678bcff3277",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+            "__v": 2
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readGroupMember : 특정 그룹 유저 불러오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupUUID : 그룹 UUID [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "profileImgUrl": "false",
+            "nick": "1122213123333332",
+            "uuid": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+        },
+        {
+            "profileImgUrl": "false",
+            "nick": "12",
+            "uuid": "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+        },
+        {
+            "profileImgUrl": "false",
+            "nick": "123",
+            "uuid": "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
 
 - POST /joinGroup : 그룹 가입
 
@@ -642,52 +853,203 @@
 
     token : 유저 토큰 [String]
 
-    groupToken : group._id [ObjectID]
+    groupUUID : groupUUID [String] ( 그룹 UUID )
 
 > Response
 
     HTTP 200 : ex)
     {
         "users": [
-            "user._id"... + "my user _id"
+            "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+            "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k",
+            "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
         ],
-        "_id": "5ef46a3e5f86ed59dca10ac1",
-        "groupName": "groupName",
-        "lat": "0",
-        "lng": "0",
-        "startTime": "1970-01-01T00:00:00.000Z",
-        "endTime": "1970-01-01T00:00:00.000Z",
-        "iconnum": 0,
-        "food": "food",
-        "__v": 0
+        "isAdult": false,
+        "_id": "5ef9ec50bbc43678bcff3277",
+        "maximum": 5,
+        "lat": "32",
+        "lng": "32",
+        "vicinity": "동교로",
+        "time": "9시 ~ 10시 ( PM )",
+        "category": "치킨",
+        "groupName": "뿌링클링클링크리",
+        "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+        "__v": 2
     }
+
+    HTTP 400 : { message: "User Duplicate or Group Not Found!" }
+
     HTTP 404 : { message: "token expiration or User Not Found" }
 
-- POST /searchGroup : 그룹 검색
+    HTTP 413 : { message : "The number of people is exceeded" }
+
+- POST /searchGroup : 그룹 검색. 검색한 문자열이 제목, 카테고리에 포함된 그룹들이 나옴
 
 > Request
 
     token : 유저 토큰 [String]
 
-    groupName : 그룹 이름 [String]
-
-    food : 음식 이름 [String]
+    searchText : 검색할 키워드 [String]
 
 > Response
 
     HTTP 200 : ex)
-    [{
-        "users": [
-            "user._id"... + "my user _id"
-        ],
-        "_id": "5ef46a3e5f86ed59dca10ac1",
-        "groupName": "groupName",
-        "lat": "0",
-        "lng": "0",
-        "startTime": "1970-01-01T00:00:00.000Z",
-        "endTime": "1970-01-01T00:00:00.000Z",
-        "iconnum": 0,
-        "food": "food",
-        "__v": 0
-    }]
+    [
+        {
+            "isAdult": false,
+            "_id": "5ef8746f9abd52777c44f0e0",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "치킨먹을사람!!2",
+            "users": [
+                {
+                    "_id": "5ef8746f9abd52777c44f0e1",
+                    "uuid": "0udfwiMNKoUhlxLzfqA0lyKRQZpGG88S2cjBJz"
+                },
+                {
+                    "_id": "5ef87a2e8c96c236d09056b0",
+                    "uuid": "9kYrF4D8NtqanYiQinAugKgQBq8kqs5271DGLr"
+                }
+            ],
+            "groupUUID": "BCExrJsJUQhXMs4v8LJNpPlv0F40BvohqzU6kwLb",
+            "__v": 1
+        },
+        {
+            "isAdult": false,
+            "_id": "5ef874799abd52777c44f0e2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "치킨먹을사람!!3",
+            "users": [
+                {
+                    "_id": "5ef874799abd52777c44f0e3",
+                    "uuid": "0udfwiMNKoUhlxLzfqA0lyKRQZpGG88S2cjBJz"
+                }
+            ],
+            "groupUUID": "5CrgW3Zewe00PdawnowdrteAXeeZ93QhVIstFMeD",
+            "__v": 0
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /readChatList : 유저 채팅방 목록
+
+> Request
+
+    token : 유저 토큰 [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k",
+                "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9ec50bbc43678bcff3277",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+            "__v": 2,
+            "lastMessage": "이건테스트야",
+            "timeStamp": "1593480851537"
+        },
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0,
+            "lastMessage": "이거도테스트야",
+            "timeStamp": "1593480463168"
+        }
+    ]
+
+    HTTP 400 : { message: "Chat Room Not Found!" }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /searchChatList
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    searchText : 검색할 텍스트 ( 채팅방 이름 ) [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k",
+                "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9ec50bbc43678bcff3277",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+            "__v": 2,
+            "lastMessage": "이건테스트야",
+            "timeStamp": "1593480851537"
+        },
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0,
+            "lastMessage": "이거도테스트야",
+            "timeStamp": "1593480463168"
+        }
+    ]m
+    or []
+
+    HTTP 400 : { message: "Chat Room Not Found!" }
+
     HTTP 404 : { message: "token expiration or User Not Found" }
