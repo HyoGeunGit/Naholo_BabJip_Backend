@@ -48,6 +48,7 @@ module.exports = (router) => {
   router.post("/readGroup/maxPage", Group.readGroupMaxPage);
   router.post("/readGroupInfo", Group.readGroupInfo);
   router.post("/readUserGroup", Group.readUserGroup);
+  router.post("/readGroupMember", Group.readGroupMember);
   router.post("/joinGroup", Group.joinGroup);
   router.post("/searchGroup", Group.searchGroup);
 
