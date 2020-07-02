@@ -8,7 +8,9 @@ import { bucket } from "../func/firebase/storage";
 import { Social } from "./Auth/Social";
 import { Chat } from "./Chat";
 import passport from "passport";
+// require("./Auth/Social");
 module.exports = (router) => {
+  // router.get("/", auth.aa);
   router.post("/aa", auth.aa);
   router.post("/signin", auth.signin);
   router.post("/signup", auth.signup);
