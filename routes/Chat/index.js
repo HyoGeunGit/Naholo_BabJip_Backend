@@ -56,7 +56,7 @@ export const Chat = {
         res.status(200).json(return_data);
       })
       .catch((e) => {
-        res.status(404).json({ message: "Chat Room Not Found!" });
+        res.status(400).json({ message: "Chat Room Not Found!" });
       });
   },
 };
