@@ -59,4 +59,45 @@ export const Chat = {
         res.status(400).json({ message: "Chat Room Not Found!" });
       });
   },
+  searchChatList: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user) return res.status(404).json({ message: "User Not Found!" });
+    const getGroups = () => {
+      let groupList = [];
+      let lastChats = [];
+      return new Promise(async (resolve, reject) => {
+        for (var i = 0; user.groups[i] != null; i++) {
+          const groupUUID = user.groups[i].groupUUID;
+          try {
+            lastChats.push(await getLastMessage(groupUUID));
+            groupList.push(groupUUID);
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        resolve({ groupList, lastChats });
+      });
+    };
+    getGroups()
+      .then(async ({ groupList, lastChats }) => {
+        let groups = await Groups.find({
+          groupUUID: { $in: groupList },
+        });
+        console.log();
+        let return_data = [];
+        for (var i = 0; groups[i] != null; i++) {
+          if (groups[i].groupName.indexOf(req.body.searchText) !== -1)
+            return_data.push({
+              ...groups[i]._doc,
+              lastMessage: lastChats[i].message,
+              timeStamp: lastChats[i].timeStamp,
+            });
+        }
+        res.status(200).json(return_data);
+      })
+      .catch((e) => {
+        res.status(400).json({ message: "Chat Room Not Found!" });
+      });
+  },
 };

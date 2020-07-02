@@ -817,6 +817,36 @@
 
     HTTP 404 : { message: "token expiration or User Not Found" }
 
+- POST /readGroupMember : 특정 그룹 유저 불러오기
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    groupUUID : 그룹 UUID [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "profileImgUrl": "false",
+            "nick": "1122213123333332",
+            "uuid": "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+        },
+        {
+            "profileImgUrl": "false",
+            "nick": "12",
+            "uuid": "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k"
+        },
+        {
+            "profileImgUrl": "false",
+            "nick": "123",
+            "uuid": "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+        }
+    ]
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
 - POST /joinGroup : 그룹 가입
 
 > Request
@@ -961,6 +991,64 @@
             "timeStamp": "1593480463168"
         }
     ]
+
+    HTTP 400 : { message: "Chat Room Not Found!" }
+
+    HTTP 404 : { message: "token expiration or User Not Found" }
+
+- POST /searchChatList
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    searchText : 검색할 텍스트 ( 채팅방 이름 ) [String]
+
+> Response
+
+    HTTP 200 : [
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD",
+                "HIbHPg7mw12XJcEcYcfhO7QkvgJQ6d7XFeBY7k",
+                "FvcWS3dplj2vEKncURSq8R3kDoVCZJgvGXdn4b"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9ec50bbc43678bcff3277",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "U7kPvH0OTIvSrDQIrXWcBSOuURe1IFKgcjF5N7g1",
+            "__v": 2,
+            "lastMessage": "이건테스트야",
+            "timeStamp": "1593480851537"
+        },
+        {
+            "users": [
+                "wojvBheCn2HUdglqmT7WeUIKaWZ69vjnYwrePD"
+            ],
+            "isAdult": false,
+            "groupType": "group",
+            "_id": "5ef9f10e98b8a55568c4c9f2",
+            "maximum": 5,
+            "lat": "32",
+            "lng": "32",
+            "vicinity": "동교로",
+            "time": "9시 ~ 10시 ( PM )",
+            "category": "치킨",
+            "groupName": "뿌링클링클링크리",
+            "groupUUID": "g25e8cZNPuCJrJo6lVeB7b1KpeMvuyNqHEvwzcPK",
+            "__v": 0,
+            "lastMessage": "이거도테스트야",
+            "timeStamp": "1593480463168"
+        }
+    ]m
+    or []
 
     HTTP 400 : { message: "Chat Room Not Found!" }
 

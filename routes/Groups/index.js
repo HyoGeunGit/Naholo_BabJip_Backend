@@ -6,8 +6,8 @@ async function getUserNick(arr) {
   let result = await Users.find({ uuid: { $in: arr } });
   let returnArr = [];
   await result.map((item) => {
-    let { profileImgUrl, nick } = item;
-    returnArr.push({ profileImgUrl, nick });
+    let { profileImgUrl, nick, uuid } = item;
+    returnArr.push({ profileImgUrl, nick, uuid });
   });
   return returnArr;
 }
@@ -87,6 +87,16 @@ export const Group = {
       ...group._doc,
       users: userNick,
     });
+  },
+  readGroupMember: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: "token expiration or User Not Found" });
+    let group = await Groups.findOne({ groupUUID: req.body.groupUUID });
+    let userNick = await getUserNick(group.users);
+    return res.status(200).json(userNick);
   },
   readUserGroup: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
