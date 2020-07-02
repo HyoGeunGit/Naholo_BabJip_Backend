@@ -1,26 +1,18 @@
 import { Users, Stories, BackupStories } from "../../mongo";
 import rndString from "randomstring";
-import { default as saveStoryImage } from "../../func/resourceManager/saveStoryImage";
+
 // const url = "http://127.0.0.1:8001/";
 const url = "http://13.59.89.201:8001/";
 export const Story = {
   add: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let beforeStory = await Stories.findOne({ userUUID: user.uuid });
-    if (beforeStory) {
-      let result = await Stories.deleteMany({
-        userUUID: user.uuid,
-      });
-    }
-    let storyUUID = rndString.generate(40);
-    let storyImage = await saveStoryImage(user.uuid, storyUUID, [req.body.img]);
     let json = {
       userUUID: user.uuid,
-      userName: user.nick,
+      userName: user.name,
       userProfileImgUrl: user.profileImgUrl,
-      imgUrl: url + storyImage[0],
-      storyUUID: storyUUID,
+      imgUrl: url + req.file.filename,
+      storyUUID: req.file.filename,
     };
     let newStory = new Stories(json);
     let newBackup = new BackupStories(json);
@@ -31,26 +23,6 @@ export const Story = {
     } catch (e) {
       return res.status(500).json({ message: "ERR!" });
     }
-  },
-  watchStory: async (req, res) => {
-    let user = await Users.findOne({ token: req.body.token });
-    if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let story = await Stories.findOne({ storyUUID: req.body.storyUUID })
-      .where("alreadyWatch")
-      .nin([user.uuid]);
-    if (!story) return res.status(409).json({ message: "User Duplicate!" });
-    story.alreadyWatch.push(user.uuid);
-    return res.status(200).json(await story.save());
-  },
-  readWatchStory: async (req, res) => {
-    let user = await Users.findOne({ token: req.body.token });
-    if (!user) return res.status(404).json({ message: "User Not Found!" });
-    let story = await Stories.findOne({ storyUUID: req.body.storyUUID });
-    let users = await Users.find(
-      { uuid: { $in: story.alreadyWatch } },
-      { nick: 1, profileImgUrl: 1 }
-    );
-    return res.status(200).json(users);
   },
   findUserStory: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
@@ -69,12 +41,46 @@ export const Story = {
     else return res.status(200).json(stories);
   },
   getStoryList: async (req, res) => {
-    let stories = await Stories.aggregate([{ $sample: { size: 10 } }]);
-    if (stories.length === 0)
-      return res.status(404).json({ message: "Story Not Found!" });
-    else {
-      return res.status(200).json(stories);
-    }
+    const groupBy = (arr, property) => {
+      return new Promise(async (resolve) => {
+        let result = await arr.reduce((acc, obj) => {
+          var key = obj[property];
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          acc[key].push(obj);
+          return acc;
+        }, {});
+        resolve(result);
+      });
+    };
+    const shuffle = (a) => {
+      return new Promise((resolve) => {
+        var j, x, i;
+        for (i = a.length; i; i -= 1) {
+          j = Math.floor(Math.random() * i);
+          x = a[i - 1];
+          a[i - 1] = a[j];
+          a[j] = x;
+        }
+        resolve(a);
+      });
+    };
+    let stories = await Stories.find();
+    groupBy(stories, "userUUID").then((returnArr) => {
+      let response = [];
+      for (let [key, value] of Object.entries(returnArr)) {
+        response.push(value);
+      }
+      shuffle(response).then((resList) => {
+        if (resList.length >= 10) {
+          resList.length = 10;
+        }
+        return resList.length !== 0
+          ? res.status(200).json(resList)
+          : res.status(404).json({ message: "Story Not Found!" });
+      });
+    });
   },
   delStory: async (req, res) => {
     try {
