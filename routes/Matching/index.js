@@ -1,3 +1,4 @@
+import rndString from "randomstring";
 module.exports = matching;
 
 function matching(io) {
@@ -15,17 +16,22 @@ function matching(io) {
       matchingOneToOne.some((v) => {
         if (v.id == socket.id) return true;
         else {
-          if (v.isVip && v.sex !== sex) {
-            io.sockets.sockets[v.id].leave("onetoone", () => {
-              io.to(v.id).emit("매칭되었습니다."); // 그룹 만들고 리턴
-              io.to(socket.id).emit("매칭되었습니다");
-            });
-            socket.leave("onetoone");
+          if (v.isVip) {
+            if (v.sex !== sex) {
+              io.sockets.sockets[v.id].leave("onetoone", () => {
+                let groupUUID = rndString.generate(40);
+                io.to(v.id).emit(groupUUID); // 그룹 만들고 리턴
+                io.to(socket.id).emit(groupUUID);
+                socket.leave("onetoone");
+              });
+            } else return true;
           } else {
-            io.sockets.sockets[v.id].leave("onetoone");
-            socket.leave("onetoone");
-            io.to(v.id).emit("매칭되었습니다."); // 그룹 만들고 리턴
-            io.to(socket.id).emit("매칭되었습니다");
+            io.sockets.sockets[v.id].leave("onetoone", () => {
+              let groupUUID = rndString.generate(40);
+              io.to(v.id).emit(groupUUID); // 그룹 만들고 리턴
+              io.to(socket.id).emit(groupUUID);
+              socket.leave("onetoone");
+            });
           }
         }
       });
