@@ -2,7 +2,7 @@ import axios from "axios";
 import Distance from "geo-distance";
 import moment from "moment";
 import "moment-timezone";
-// moment.tz.setDefault("Asia/Seoul");
+moment.tz.setDefault("Asia/Seoul");
 let key = "AIzaSyDplX2j3RVt5rqsTB9QfN9O6HxXcGgr1g0";
 const getResponse = (arr, lat, lng, range) => {
   let returnArray = [];
