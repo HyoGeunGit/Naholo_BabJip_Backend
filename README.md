@@ -80,7 +80,18 @@
         "\_\_v": 0
     }
 
-    HTTP 203 : { "message" : "Non-Authoritative Information" } // 약관 미동의
+    HTTP 203 : {
+        "termsChk": false,
+        "eventChk": false,
+        "\_id": "5ee3a8136429de1a58b3cab2",
+        "id": "010111133331",
+        "phone": "0101111222212",
+        "email": "akaa13",
+        "nick": "12312314",
+        "token": "9CQN3jhouq30BfaJW5tIfPZez",
+        "\_\_v": 0
+    }
+     // 약관 미동의
 
     HTTP 404 : { message : "User Not Found! } // 로그인 실패
 
