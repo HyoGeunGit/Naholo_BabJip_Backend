@@ -8,8 +8,6 @@
 
 ### Android: https://github.com/HyoGeunGit/NaholoBabJip_Android
 
-
-
 ### RestFul
 
 - POST /signup : User register ( 유저 회원가입)
@@ -27,7 +25,7 @@
     email : 유저 이메일 [String]
 
     nick : 유저 닉네임 [String]
-      
+
     name : 유저 이름 실명 [String]
 
     sex :  유저 성별 [Boolean], sex ? 여 : 남
@@ -1058,27 +1056,44 @@
 
     HTTP 404 : { message: "token expiration or User Not Found" }
 
+- POST /changeNick : 유저 닉네임 변경
 
+> Request
+
+    token : 유저 토큰 [String]
+
+    nick : 바꿀 유저 닉네임 [String]
+
+> Response
+
+    HTTP 200 : { message: "success!" }
+
+    HTTP 209 : { message: "Same Your Before Nickname" }
+
+    HTTP 404 : { message: "User Not Found!" }
+
+    HTTP 409 : { message: "Nick Duplicate!" }
+
+    HTTp 500 : { message: "ERR!" }
 
 ### Socket
 
 # Input Event : Front -> Back
+
 # Output Event : Back -> Front
 
-* Input Event: join onetoone : 매칭 시작
+- Input Event: join onetoone : 매칭 시작
 
 > Value
-    
+
     isVip: 이성 매칭
-    
+
     sex: 성별
-    
+
     uuid: 유저 uuid
-    
-* Output Event: matching success : 매칭 성공
+
+- Output Event: matching success : 매칭 성공
 
 > Value
 
     {Not Json} groupUUID [String]
-    
-    
