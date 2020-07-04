@@ -8,6 +8,11 @@ export const auth = {
   setFCM: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
     if (user) return res.status(404).json({ message: "User Not Found!" });
+    let fbResult = await fireDB
+      .collection("Users")
+      .doc(user.uuid)
+      .update({ FCM: req.body.FCM });
+    return res.status(200).json({ message: "success!" });
   },
   signin: async (req, res) => {
     let user = await Users.findOne({ id: req.body.id });
