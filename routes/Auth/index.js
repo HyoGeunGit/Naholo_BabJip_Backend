@@ -33,10 +33,7 @@ export const auth = {
       } catch (e) {
         return res.status(500).json({ message: "ERR!" });
       }
-      if (!user.termsChk)
-        return res
-          .status(203)
-          .json({ message: "Non-Authoritative Information" });
+      if (!user.termsChk) return res.status(203).json(user);
       return res.status(200).json(user);
     } else return res.status(404).json({ message: "User Not Found!" });
   },
