@@ -1076,6 +1076,20 @@
 
     HTTp 500 : { message: "ERR!" }
 
+- POST /changeFCM : FCM 변경
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    FCM : FCM [String]
+
+> Response
+
+    HTTP 200 : { message: "success!" }
+
+    HTTP 404 : { message: "User Not Found!" }
+
 ### Socket
 
 # Input Event : Front -> Back

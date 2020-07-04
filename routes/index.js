@@ -56,6 +56,7 @@ module.exports = (router) => {
   router.post("/readChatList", Chat.chatList);
   router.post("/searchChatList", Chat.searchChatList);
 
+  router.post("/changeFCM", auth.setFCM);
   router.post("/changeNick", Setting.nick);
   return router;
 };

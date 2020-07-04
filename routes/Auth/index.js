@@ -12,6 +12,7 @@ export const auth = {
       .collection("Users")
       .doc(user.uuid)
       .update({ FCM: req.body.FCM });
+    return res.status(200).json({ message: "success!" });
   },
   signin: async (req, res) => {
     let user = await Users.findOne({ id: req.body.id });
