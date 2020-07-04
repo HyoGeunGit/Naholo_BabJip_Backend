@@ -11,6 +11,7 @@ async function getUserNick(arr) {
   });
   return returnArr;
 }
+const fireDB = admin.firestore();
 export const Group = {
   ff: async (req, res) => {
     let result = await Groups.find();
@@ -39,6 +40,15 @@ export const Group = {
             "https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_1280.jpg",
         },
       });
+      let fbResult = await fireDB
+        .collection("Groups")
+        .doc(group.groupUUID)
+        .set(
+          {
+            users: [fireDB.doc(`/Users/${user.uuid}`)],
+          },
+          { merge: true }
+        );
       return res.status(200).json(group);
     }
   },
@@ -135,6 +145,14 @@ export const Group = {
       else {
         group.users.push(user.uuid);
         user.groups.push({ groupUUID: req.body.groupUUID, groupType: "group" });
+        let fbResult = await fireDB
+          .collection("Groups")
+          .doc(req.body.groupUUID)
+          .update({
+            users: admin.firestore.FieldValue.arrayUnion(
+              fireDB.doc(`/Users/${user.uuid}`)
+            ),
+          });
         let result = await user.save();
         return res.status(200).json(await group.save());
       }
