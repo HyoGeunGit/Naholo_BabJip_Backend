@@ -7,6 +7,7 @@ import multer from "multer";
 import { bucket } from "../func/firebase/storage";
 import { Social } from "./Auth/Social";
 import { Chat } from "./Chat";
+import { Setting } from "./Setting";
 import passport from "passport";
 // require("./Auth/Social");
 module.exports = (router) => {
@@ -54,5 +55,7 @@ module.exports = (router) => {
 
   router.post("/readChatList", Chat.chatList);
   router.post("/searchChatList", Chat.searchChatList);
+
+  router.post("/changeNick", Setting.nick);
   return router;
 };
