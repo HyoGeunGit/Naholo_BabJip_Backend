@@ -8,6 +8,10 @@
 
 ### Android: https://github.com/HyoGeunGit/NaholoBabJip_Android
 
+
+
+### RestFul
+
 - POST /signup : User register ( 유저 회원가입)
 
 > Params
@@ -1053,3 +1057,28 @@
     HTTP 400 : { message: "Chat Room Not Found!" }
 
     HTTP 404 : { message: "token expiration or User Not Found" }
+
+
+
+### Socket
+
+# Input Event : Front -> Back
+# Output Event : Back -> Front
+
+* Input Event: join onetoone : 매칭 시작
+
+> Value
+    
+    isVip: 이성 매칭
+    
+    sex: 성별
+    
+    uuid: 유저 uuid
+    
+* Output Event: matching success : 매칭 성공
+
+> Value
+
+    {Not Json} groupUUID [String]
+    
+    
