@@ -2,7 +2,13 @@ import { Users } from "../../mongo";
 import rndString from "randomstring";
 // $2a$10$llw0G6IyibUob8h5XRt9xuEuRSK5AhWkj0qTtYqaOpKvw0D3v6b7S
 import bCrypt from "../../func/bcrypt/bCrypt";
+import { admin } from "../../firebase";
+const fireDB = admin.firestore();
 export const auth = {
+  setFCM: async (req, res) => {
+    let user = await Users.findOne({ token: req.body.token });
+    if (user) return res.status(404).json({ message: "User Not Found!" });
+  },
   signin: async (req, res) => {
     let user = await Users.findOne({ id: req.body.id });
     if (!user) return res.status(404).json({ message: "User Not Found!" });
@@ -53,6 +59,14 @@ export const auth = {
       let newUser = new Users(json);
       let result = await newUser.save();
       newUser.passwd = undefined;
+      let fbResult = await fireDB.collection("Users").doc(json.uuid).set(
+        {
+          FCM: "",
+          name: json.nick,
+          profileImg: "",
+        },
+        { merge: true }
+      );
       return res.status(200).json(newUser);
     } catch (e) {
       console.log(e);

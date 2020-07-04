@@ -3,6 +3,7 @@ import { admin } from "../../firebase/index";
 import rndString from "randomstring";
 import passport from "passport";
 
+const fireDB = admin.firestore();
 const FindORSearch = (req, res) => {
   return new Promise(async (resolve, reject) => {
     let user = await Users.findOne({ uuid: req.body.uuid });
@@ -26,6 +27,14 @@ const FindORSearch = (req, res) => {
       };
       try {
         new_user = new Users(new_user);
+        let fbResult = await fireDB.collection("Users").doc(new_user.uuid).set(
+          {
+            FCM: "",
+            name: new_user.nick,
+            profileImg: "",
+          },
+          { merge: true }
+        );
         let result = await new_user.save();
         return res.status(200).json(new_user);
       } catch (e) {
