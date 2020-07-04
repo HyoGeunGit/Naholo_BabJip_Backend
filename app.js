@@ -6,9 +6,15 @@ import moment from "moment";
 import "moment-timezone";
 import passport from "passport";
 import { Strategy as KakaoStrategy } from "passport-kakao-token";
+import http from "http";
+import socket from "socket.io";
 
 require("./mongo");
 let app = express();
+
+var server = http.Server(app);
+var io = socket(server);
+
 let router = express.Router();
 const port = 3000;
 let useRouter = require("./routes/index")(router);
@@ -33,10 +39,21 @@ passport.use(
 );
 app.use(passport.initialize());
 
-app.use("/", useRouter);
+app.set("view engine", "ejs");
+app.engine("html", require("ejs").renderFile);
 
-app.listen(process.env.PORT || 8001, function () {
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.use("/", useRouter);
+app.get("/cht", (req, res) => {
+  res.render("chat.html");
+});
+
+require("./routes/Matching/index.js")(io);
+server.listen(process.env.PORT || 8001, function () {
+  console.log(
+    "Express server listening on port %d in %s mode",
+    this.address().port,
+    app.settings.env
+  );
 });
 
 export default app;
