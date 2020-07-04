@@ -16,8 +16,8 @@
       <textarea id="chatLog" class="chat_log" readonly></textarea>
     </div>
     <form id="chat">
-      <!-- <input id="name" class="name" type="text" placeholder="name" required>
-      <input id="room" class="room" type="text" placeholder="room" required>
+      <input id="name" class="name" type="text" placeholder="name" required>
+      <!-- <input id="room" class="room" type="text" placeholder="room" required>
       <input id="message" class="message" type="text" placeholder="Enter Message!" required> -->
       <input type="submit" class="chat" value="chat"/>
     </form>
@@ -27,7 +27,7 @@
     <script>
       var socket = io(); //1
       $('#chat').on('submit', function(e){ //2
-        socket.emit('join onetoone', false, false, 'asdasdasd');
+        socket.emit('join onetoone', false, false, $('#name').val());
         // $('#message').val('');
         // $('#message').focus();
         e.preventDefault();
