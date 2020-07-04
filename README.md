@@ -27,7 +27,7 @@
     email : 유저 이메일 [String]
 
     nick : 유저 닉네임 [String]
-
+      
     name : 유저 이름 실명 [String]
 
     sex :  유저 성별 [Boolean], sex ? 여 : 남
