@@ -4,4 +4,10 @@ import groupController from "./group.controller";
 
 const GroupRouter = Router();
 
+GroupRouter.post("/", jwtAuthenticate, groupController.createGroup);
+GroupRouter.get("/", jwtAuthenticate, groupController.readGroups);
+GroupRouter.get("/getGroupsCount", jwtAuthenticate, groupController.getGroupsCount);
+GroupRouter.get("/:_id", jwtAuthenticate, groupController.readGroup);
+GroupRouter.get("/:_id/getMember", jwtAuthenticate, groupController.readGroupMember);
+
 export default GroupRouter;

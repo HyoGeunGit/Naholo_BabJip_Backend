@@ -2,6 +2,7 @@ import { Model, Schema, Document, model, HookNextFunction, Mongoose } from "mong
 import { ObjectID } from "bson";
 import createEncryptionPassword from "../modules/lib/createEncryptionPassword";
 import jwt from "jwt-simple";
+import { IGroupSchema } from "./Group";
 
 export interface LoginData {
 	userid: string;
@@ -22,7 +23,7 @@ export interface IUser extends LoginData {
 	eventChk: boolean; // 이벤트 동의
 	profileImgUrl: string;
 	social: string; // facebook, google, kakao
-	groups: ObjectID; // FIXME: Group 연결
+	groups: Array<ObjectID>; // FIXME: Group 연결
 }
 export const UserSchema: Schema = new Schema({
 	// 암호화 필수
@@ -47,6 +48,7 @@ const NonUpdatableField = ["userid", "passwd", "phone", "email", "nick"];
  * @description User 스키마에 대한 메서드 ( document )
  */
 export interface IUserSchema extends IUser, Document {
+	joinGroup(group: IGroupSchema): Promise<IGroupSchema>;
 	checkPassword(passwd: string): Promise<boolean>;
 	getToken(): string;
 }
@@ -56,9 +58,20 @@ export interface IUserSchema extends IUser, Document {
  */
 export interface IUserModel extends Model<IUserSchema> {}
 
+UserSchema.methods.joinGroup = async function (this: IUserSchema, group: IGroupSchema): Promise<IGroupSchema> {
+	if (this.groups.indexOf(group._id) != -1) throw "중복 참가";
+	else {
+		this.groups.push(group._id);
+		await this.save();
+		group.users.push(this._id);
+		return await group.save();
+	}
+};
+
 UserSchema.methods.checkPassword = async function (this: IUserSchema, passwd: string): Promise<boolean> {
 	return (await createEncryptionPassword(passwd, this.salt)).passwd == this.passwd;
 };
+
 UserSchema.methods.getToken = function (this: IUserSchema): string {
 	let user: LoginData = {
 		userid: this.userid,
