@@ -39,7 +39,13 @@ passport.use(
 );
 app.use(passport.initialize());
 
+app.set("view engine", "ejs");
+app.engine("html", require("ejs").renderFile);
+
 app.use("/", useRouter);
+app.get("/cht", (req, res) => {
+  res.render("chat.html");
+});
 
 require("./routes/Matching/index.js")(io);
 server.listen(process.env.PORT || 8001, function () {
@@ -49,4 +55,5 @@ server.listen(process.env.PORT || 8001, function () {
     app.settings.env
   );
 });
+
 export default app;
