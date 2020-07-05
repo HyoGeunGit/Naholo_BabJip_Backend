@@ -54,8 +54,8 @@ function matching(io) {
             if (v.sex !== sex) {
               let groupUUID = rndString.generate(40);
               matchingOneToOne.splice(i, 1);
-              io.to(v.id).emit("matching success", { groupUUID });
-              io.to(socket.id).emit("matching success", { groupUUID });
+              io.to(v.id).emit("matching success", [{ groupUUID }]);
+              io.to(socket.id).emit("matching success", [{ groupUUID }]);
               chk = false;
               await addGroup(groupUUID, v.uuid, uuid);
               break;
@@ -65,8 +65,8 @@ function matching(io) {
               if (v.sex !== sex) {
                 let groupUUID = rndString.generate(40);
                 matchingOneToOne.splice(i, 1);
-                io.to(v.id).emit("matching success", { groupUUID });
-                io.to(socket.id).emit("matching success", { groupUUID });
+                io.to(v.id).emit("matching success", [{ groupUUID }]);
+                io.to(socket.id).emit("matching success", [{ groupUUID }]);
                 chk = false;
                 await addGroup(groupUUID, v.uuid, uuid);
                 break;
@@ -74,8 +74,8 @@ function matching(io) {
             } else {
               let groupUUID = rndString.generate(40);
               matchingOneToOne.splice(i, 1);
-              io.to(v.id).emit("matching success", { groupUUID });
-              io.to(socket.id).emit("matching success", { groupUUID });
+              io.to(v.id).emit("matching success", [{ groupUUID }]);
+              io.to(socket.id).emit("matching success", [{ groupUUID }]);
               chk = false;
               await addGroup(groupUUID, v.uuid, uuid);
               break;
