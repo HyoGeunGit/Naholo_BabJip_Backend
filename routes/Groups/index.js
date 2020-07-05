@@ -63,6 +63,7 @@ export const Group = {
       let groups = await Groups.find({
         users: { $nin: user.uuid },
         groupType: "group",
+        $where: "this.users.length < this.maximum",
       })
         .limit(10)
         .skip(index * 10);
@@ -77,7 +78,11 @@ export const Group = {
         .json({ message: "token expiration or User Not Found" });
     return res.status(200).json({
       maxPage: Math.floor(
-        Groups.count({ users: { $nin: user.uuid }, groupType: "group" }) / 10
+        Groups.count({
+          users: { $nin: user.uuid },
+          groupType: "group",
+          $where: "this.users.length < this.maximum",
+        }) / 10
       ),
     });
   },
@@ -90,6 +95,7 @@ export const Group = {
     let group = await Groups.find({
       users: { $nin: user.uuid },
       groupType: "group",
+      $where: "this.users.length < this.maximum",
     });
     return res.status(200).json(group);
   },
@@ -177,7 +183,11 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
-      let groups = await Groups.find({ $or: searchQuery })
+      let groups = await Groups.find({
+        groupType: "group",
+        $where: "this.users.length < this.maximum",
+        $or: searchQuery,
+      })
         .where("users")
         .nin([user.uuid]);
       return res.status(200).json(groups);
