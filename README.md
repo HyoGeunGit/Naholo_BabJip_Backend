@@ -1101,6 +1101,22 @@
 
     HTTP 404 : { message: "User Not Found!" }
 
+- POST /changeProfileImg : 유저 프로필이미지 변경
+
+> Request
+
+    token : 유저 토큰 [String]
+
+    profileImage : 바꿀 이미지 [String]
+
+> Response
+
+    HTTP 200 : { message: "success!" }
+
+    HTTP 404 : { message: "User Not Found!" }
+
+    HTTP 500 : { message: "ERR!" }
+
 ### Socket
 
 # Input Event : Front -> Back
@@ -1121,4 +1137,4 @@
 
 > Value
 
-    {Not Json} groupUUID [String]
+    { groupUUID: "aofjewaufheuuffuhefufe" } [Json. groupUUID: String]

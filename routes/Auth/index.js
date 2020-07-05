@@ -3,6 +3,8 @@ import rndString from "randomstring";
 // $2a$10$llw0G6IyibUob8h5XRt9xuEuRSK5AhWkj0qTtYqaOpKvw0D3v6b7S
 import bCrypt from "../../func/bcrypt/bCrypt";
 import { admin } from "../../firebase";
+import saveProfileImage from "../../func/resourceManager/saveProfileImage";
+const url = "http://13.59.89.201:8001/";
 const fireDB = admin.firestore();
 export const auth = {
   setFCM: async (req, res) => {
@@ -51,11 +53,14 @@ export const auth = {
         );
       });
     };
+    let userUUID = rndString.generate(38);
+    let profileImage = await saveProfileImage(userUUID, req.body.profileImage);
     let json = {
       ...req.body,
       passwd: await pw(req.body.passwd),
       token: rndString.generate(25),
-      uuid: rndString.generate(38),
+      uuid: userUUID,
+      profileImgUrl: url + profileImage,
     };
     try {
       let newUser = new Users(json);
@@ -65,7 +70,7 @@ export const auth = {
         {
           FCM: "",
           name: json.nick,
-          profileImg: "",
+          profileImg: json.profileImgUrl,
         },
         { merge: true }
       );
