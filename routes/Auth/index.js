@@ -70,7 +70,7 @@ export const auth = {
         {
           FCM: "",
           name: json.nick,
-          profileImg: "",
+          profileImg: json.profileImgUrl,
         },
         { merge: true }
       );

@@ -58,5 +58,6 @@ module.exports = (router) => {
 
   router.post("/changeFCM", auth.setFCM);
   router.post("/changeNick", Setting.nick);
+  router.post("/changeProfileImg", Setting.profileImg);
   return router;
 };
