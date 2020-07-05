@@ -44,6 +44,7 @@
         "phone": "0101111222212",
         "email": "akaa13",
         "nick": "12312314",
+        "profileImgUrl": "{url}"
         "token": "9CQN3jhouq30BfaJW5tIfPZez",
         "\_\_v": 0
     }
