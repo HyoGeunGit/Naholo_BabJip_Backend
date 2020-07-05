@@ -13,6 +13,7 @@ async function addGroup(groupUUID, uuid1, uuid2) {
     users: [uuid1, uuid2],
     maximum: 2,
     groupUUID: groupUUID,
+    groupName: user1.nick + ", " + user2.nick,
   });
 
   try {
@@ -62,7 +63,7 @@ function matching(io) {
                 uuid
               );
               io.to(v.id).emit("matching success", [
-                { groupUUID, nuck: u2nick, sex },
+                { groupUUID, nick: u2nick, sex },
               ]);
               io.to(socket.id).emit("matching success", [
                 { groupUUID, nick: u1nick, sex: v.sex },
@@ -81,7 +82,7 @@ function matching(io) {
                   uuid
                 );
                 io.to(v.id).emit("matching success", [
-                  { groupUUID, nuck: u2nick, sex },
+                  { groupUUID, nick: u2nick, sex },
                 ]);
                 io.to(socket.id).emit("matching success", [
                   { groupUUID, nick: u1nick, sex: v.sex },
@@ -98,7 +99,7 @@ function matching(io) {
                 uuid
               );
               io.to(v.id).emit("matching success", [
-                { groupUUID, nuck: u2nick, sex },
+                { groupUUID, nick: u2nick, sex },
               ]);
               io.to(socket.id).emit("matching success", [
                 { groupUUID, nick: u1nick, sex: v.sex },
