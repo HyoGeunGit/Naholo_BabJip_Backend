@@ -1140,4 +1140,8 @@
 
 > Value
 
-    { groupUUID: "aofjewaufheuuffuhefufe" } [Json. groupUUID: String]
+    {
+        groupUUID: "aofjewaufheuuffuhefufe" [String]
+        nick: "유저닉네임" [String] // 상대방 닉네임
+        sex: true [Boolean] // 상대방 성별
+    }

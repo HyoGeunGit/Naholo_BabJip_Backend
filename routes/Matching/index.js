@@ -36,9 +36,11 @@ async function addGroup(groupUUID, uuid1, uuid2) {
       .set({
         users: [fireDB.doc(`/Users/${uuid1}`), fireDB.doc(`/Users/${uuid2}`)],
       });
+    return { u1nick: user1.nick, u2nick: user2.nick };
   } catch (e) {
     console.log("socket ERR!");
     throw e;
+    return e;
   }
 }
 function matching(io) {
@@ -54,10 +56,18 @@ function matching(io) {
             if (v.sex !== sex) {
               let groupUUID = rndString.generate(40);
               matchingOneToOne.splice(i, 1);
-              io.to(v.id).emit("matching success", [{ groupUUID }]);
-              io.to(socket.id).emit("matching success", [{ groupUUID }]);
+              const { u1nick, u2nick } = await addGroup(
+                groupUUID,
+                v.uuid,
+                uuid
+              );
+              io.to(v.id).emit("matching success", [
+                { groupUUID, nuck: u2nick, sex },
+              ]);
+              io.to(socket.id).emit("matching success", [
+                { groupUUID, nick: u1nick, sex: v.sex },
+              ]);
               chk = false;
-              await addGroup(groupUUID, v.uuid, uuid);
               break;
             }
           } else {
@@ -65,19 +75,35 @@ function matching(io) {
               if (v.sex !== sex) {
                 let groupUUID = rndString.generate(40);
                 matchingOneToOne.splice(i, 1);
-                io.to(v.id).emit("matching success", [{ groupUUID }]);
-                io.to(socket.id).emit("matching success", [{ groupUUID }]);
+                const { u1nick, u2nick } = await addGroup(
+                  groupUUID,
+                  v.uuid,
+                  uuid
+                );
+                io.to(v.id).emit("matching success", [
+                  { groupUUID, nuck: u2nick, sex },
+                ]);
+                io.to(socket.id).emit("matching success", [
+                  { groupUUID, nick: u1nick, sex: v.sex },
+                ]);
                 chk = false;
-                await addGroup(groupUUID, v.uuid, uuid);
                 break;
               }
             } else {
               let groupUUID = rndString.generate(40);
               matchingOneToOne.splice(i, 1);
-              io.to(v.id).emit("matching success", [{ groupUUID }]);
-              io.to(socket.id).emit("matching success", [{ groupUUID }]);
+              const { u1nick, u2nick } = await addGroup(
+                groupUUID,
+                v.uuid,
+                uuid
+              );
+              io.to(v.id).emit("matching success", [
+                { groupUUID, nuck: u2nick, sex },
+              ]);
+              io.to(socket.id).emit("matching success", [
+                { groupUUID, nick: u1nick, sex: v.sex },
+              ]);
               chk = false;
-              await addGroup(groupUUID, v.uuid, uuid);
               break;
             }
           }
