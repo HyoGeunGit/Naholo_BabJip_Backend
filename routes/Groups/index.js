@@ -60,7 +60,10 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     else {
-      let groups = await Groups.find({ users: { $nin: user.uuid } })
+      let groups = await Groups.find({
+        users: { $nin: user.uuid },
+        groupType: "group",
+      })
         .limit(10)
         .skip(index * 10);
       return res.status(200).json(groups);
@@ -73,7 +76,9 @@ export const Group = {
         .status(404)
         .json({ message: "token expiration or User Not Found" });
     return res.status(200).json({
-      maxPage: Math.floor(Groups.count({ users: { $nin: user.uuid } }) / 10),
+      maxPage: Math.floor(
+        Groups.count({ users: { $nin: user.uuid }, groupType: "group" }) / 10
+      ),
     });
   },
   readGroupAll: async (req, res) => {
@@ -82,7 +87,10 @@ export const Group = {
       return res
         .status(404)
         .json({ message: "token expiration or User Not Found" });
-    let group = await Groups.find({ users: { $nin: user.uuid } });
+    let group = await Groups.find({
+      users: { $nin: user.uuid },
+      groupType: "group",
+    });
     return res.status(200).json(group);
   },
   readGroupInfo: async (req, res) => {
