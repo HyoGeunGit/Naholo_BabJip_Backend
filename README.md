@@ -1121,4 +1121,4 @@
 
 > Value
 
-    {Not Json} groupUUID [String]
+    { groupUUID: "aofjewaufheuuffuhefufe" } [Json. groupUUID: String]
