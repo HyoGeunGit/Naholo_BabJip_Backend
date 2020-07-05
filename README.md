@@ -30,6 +30,8 @@
 
     sex :  유저 성별 [Boolean], sex ? 여 : 남
 
+    profileImage : 유저 프로필 이미지 [String]
+    
 > Response
 
     HTTP 200 : 유저 데이터 // 성공
