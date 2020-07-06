@@ -30,7 +30,7 @@
 
     sex :  유저 성별 [Boolean], sex ? 여 : 남
 
-    profileImage : 유저 프로필 이미지 [String]
+    profileImage : 유저 프로필 이미지 [Base64 String]
     
 > Response
 
@@ -1110,7 +1110,7 @@
 
     token : 유저 토큰 [String]
 
-    profileImage : 바꿀 이미지 [String]
+    profileImage : 바꿀 이미지 [Base64 String]
 
 > Response
 
