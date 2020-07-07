@@ -54,13 +54,15 @@ export const auth = {
       });
     };
     let userUUID = rndString.generate(38);
-    let profileImage = await saveProfileImage(userUUID, req.body.profileImage);
+    let profileImage = req.body.profileImage
+      ? await saveProfileImage(userUUID, req.body.profileImage)
+      : "";
     let json = {
       ...req.body,
       passwd: await pw(req.body.passwd),
       token: rndString.generate(25),
       uuid: userUUID,
-      profileImgUrl: url + profileImage,
+      profileImgUrl: profileImage !== "" ? url + profileImage : profileImage,
     };
     try {
       let newUser = new Users(json);
