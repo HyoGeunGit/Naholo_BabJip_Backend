@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import Controller from "../controller";
 import { IUserSchema } from "../../schema/User";
-import Group, { IGroup } from "../../schema/Group";
+import Group, { IGroup, IGroupSchema } from "../../schema/Group";
+import { DocumentQuery, MongooseFilterQuery } from "mongoose";
 
 class GroupController extends Controller {
 	/**
@@ -33,10 +34,10 @@ class GroupController extends Controller {
 
 		let offset: number = Number(req.query.offset); // 시작지점
 		let limit: number = Number(req.query.limit); // 갯수
-		let searchText = Number(req.query.search);
+		let searchText = String(req.query.search);
 
-		let query;
-		let groups;
+		let query: MongooseFilterQuery<Pick<IGroupSchema, "groupName" | "groupType">>;
+		let groups: IGroupSchema[];
 
 		// 검색 쿼리가 있을 시
 		if (searchText) {
