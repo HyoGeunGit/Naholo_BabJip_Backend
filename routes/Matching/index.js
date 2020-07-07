@@ -25,6 +25,7 @@ async function addGroup(groupUUID, uuid1, uuid2) {
     let dbResult = await db.ref(groupUUID + "/welcome").set({
       message: "그룹이 생성되었습니다.",
       timeStamp: "1593480463168",
+      messageType: "welcomeMessage",
       userModel: {
         name: "ADMIN",
         photo_profile:

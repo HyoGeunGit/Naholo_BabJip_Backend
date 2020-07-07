@@ -34,6 +34,7 @@ export const Group = {
       db.ref(group.groupUUID + "/welcome").set({
         message: "그룹이 생성되었습니다.",
         timeStamp: "1593480463168",
+        messageType: "welcomeMessage",
         userModel: {
           name: "ADMIN",
           photo_profile:
