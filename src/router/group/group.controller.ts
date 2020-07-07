@@ -33,12 +33,24 @@ class GroupController extends Controller {
 
 		let offset: number = Number(req.query.offset); // 시작지점
 		let limit: number = Number(req.query.limit); // 갯수
+		let searchText = Number(req.query.search);
+
+		let query;
 		let groups;
-		if (!isNaN(offset) && !isNaN(offset))
-			groups = await Group.find({ users: { $nin: user._id } })
-				.limit(limit)
-				.skip(offset);
-		else groups = await Group.find({ users: { $nin: user._id } });
+
+		// 검색 쿼리가 있을 시
+		if (searchText) {
+			query = {
+				groupType: "group",
+				$where: "this.users.length < this.maximum",
+				$or: [{ groupName: { $regex: searchText } }, { category: { $regex: searchText } }],
+			};
+		} else {
+			query = { users: { $nin: user._id } };
+		}
+
+		if (!isNaN(offset) && !isNaN(offset)) groups = await Group.find(query).limit(limit).skip(offset);
+		else groups = await Group.find({ query });
 		return res.status(200).json(groups);
 	}
 	/**
@@ -62,8 +74,9 @@ class GroupController extends Controller {
 		let user = req.user as IUserSchema;
 
 		let groupId = req.params._id;
-
-		return res.status(200).json(await Group.findOne({ _id: groupId }));
+		let group = await Group.findOne({ _id: groupId });
+		if (!group) return res.status(404).json({});
+		else return res.status(200).json(group);
 	}
 	/**
 	 * @description 그룹 맴버 가져오기
@@ -76,12 +89,30 @@ class GroupController extends Controller {
 
 		let groupId = req.params._id;
 		let group = await Group.findOne({ _id: groupId });
-		group = await group.populate("users", "profileImgUrl nick").execPopulate();
-		return res.status(200).json(group.users);
+		if (!group) return res.status(404).json({});
+		else {
+			group = await group.populate("users", "profileImgUrl nick").execPopulate();
+			return res.status(200).json(group.users);
+		}
+	}
+	/**
+	 * @description 그룹 참여
+	 * @param {Request}req Express req
+	 * @param {Response}res Express res
+	 * @param {NextFunction}next Express next
+	 */
+	public async joinGroup(req: Request, res: Response, next: NextFunction) {
+		let user = req.user as IUserSchema;
+
+		let groupId = req.params._id;
+		let group = await Group.findOne({ _id: groupId });
+		if (!group) return res.status(404).json({});
+		else {
+			await user.joinGroup(group);
+			return res.status(200).json(group);
+		}
 	}
 	// TODO: 본인이 포함된 그룹 정보 가져오기는 auth에 작성
-	// TODO: joinGroup
-	// TODO: searchGroup
 }
 
 export default new GroupController();

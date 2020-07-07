@@ -12,6 +12,7 @@ export interface IGroup {
 	time: string; // 만날 시간 ex 9시 ~ 10시 ( PM )
 	isAdult: boolean; // 19세
 	category: string; // 카테고리
+	groupType: string; // "group" = 그룹, "onebyone" = 1대1
 }
 export const GroupSchema: Schema = new Schema({
 	groupName: { type: String }, // 그룹 이름
@@ -23,6 +24,7 @@ export const GroupSchema: Schema = new Schema({
 	time: { type: String }, // 만날 시간 ex 9시 ~ 10시 ( PM )
 	isAdult: { type: Boolean, default: false }, // 19세
 	category: { type: String }, // 카테고리
+	groupType: { type: String, default: "group" }, // "group" = 그룹, "onebyone" = 1대1
 });
 
 /**
