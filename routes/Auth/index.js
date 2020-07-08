@@ -9,7 +9,7 @@ const fireDB = admin.firestore();
 export const auth = {
   setFCM: async (req, res) => {
     let user = await Users.findOne({ token: req.body.token });
-    if (user) return res.status(404).json({ message: "User Not Found!" });
+    if (!user) return res.status(404).json({ message: "User Not Found!" });
     let fbResult = await fireDB
       .collection("Users")
       .doc(user.uuid)
