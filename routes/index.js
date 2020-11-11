@@ -1,6 +1,5 @@
 import { auth } from "./Auth";
 import { Story } from "./Story";
-import { Place } from "./Place";
 import { Group } from "./Groups";
 import rndstring from "randomstring";
 import multer from "multer";
@@ -39,9 +38,6 @@ module.exports = (router) => {
   router.post("/bb", Story.bb);
   router.post("/cc", Story.cc);
   router.post("/ff", Group.ff);
-  router.post("/getPlace", Place.find);
-  router.post("/getCategory", Place.category);
-  router.post("/getDetail", Place.detail);
 
   router.post("/addGroup", Group.addGroup);
   router.post("/readGroup", Group.readGroupAll);

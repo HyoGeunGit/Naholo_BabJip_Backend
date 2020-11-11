@@ -1,9 +1,9 @@
 import * as admin from "firebase-admin";
-var serviceAccount = require("../path/naholo-babjip-firebase-adminsdk-atcf5-757cc90900");
+var serviceAccount = require("../path/testfirebase-63b2b-firebase-adminsdk-q04xu-f46b67c8e1.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://naholo-babjip.firebaseio.com",
+  databaseURL: "https://testfirebase-63b2b.firebaseio.com/",
 });
 
 export { admin };
